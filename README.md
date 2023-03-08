@@ -14,7 +14,7 @@
 <サウナのレビュー,選定>
 
 ## 設計書
-<...>
+<https://drive.google.com/drive/folders/1NnFWLx1CnGPj-vES43qoEGZxB503upDT>
 
 ## 開発環境
 - OS：Linux(CentOS)
