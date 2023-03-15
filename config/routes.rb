@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    root to: 'homes#top'
+    # URL/admin/saunas...
+    resources :saunas, except: [:destroy]
+
+    # URL/admin/genres...
+    resources :genres, only: [:index, :create, :edit, :update, :destroy]
+
+  end
+
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, controllers: {

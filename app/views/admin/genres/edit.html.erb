@@ -1,0 +1,12 @@
+<%= form_with model: @genre, url: admin_genre_path do |f| %>
+  <div class="form-group row">
+    <h5 class="col-md-12">ジャンル編集</h5>
+    <%= f.label "ジャンル名", class: "col-md-3 offset-md-1 col-form-label" %>
+    <div class="col-md-3">
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "編集", class: "btn btn btn-success px-5 py-2" %>
+    </div>
+  </div>
+<% end %>

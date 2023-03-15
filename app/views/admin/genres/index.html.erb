@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="row">
+    <h4 class="p-3">ジャンル追加・一覧</h4>
+  </div>
+
+  <%= form_with model: @genre_new, url: admin_genres_path do |f| %>
+  <div class="form-group row">
+    <h5 class="col-md-12">ジャンル追加</h5>
+    <%= f.label "ジャンル名", class: "col-md-3 offset-md-1 col-form-label" %>
+    <div class="col-md-3">
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "新規登録", class: "btn btn btn-success px-5 py-2" %>
+    </div>
+  </div>
+  <% end %>
+
+
+  <div class="row">
+    <h5 class="col-md-12">ジャンル一覧</h5>
+    <div class="col-md-6 offset-md-1">
+      <table class="table">
+        <thead>
+          <th scope="col", style="width:50%">ジャンル</th>
+          <th scope="col", style="width:25%"></th>
+          <th scope="col", style="width:25%"></th>
+        </thead>
+
+        <% @genres.each do |genre| %>
+        <tbody>
+          <td scope="row">
+            <%= genre.name %>
+          </td>
+          <td scope="row">
+            <%= link_to "編集", edit_admin_genre_path(genre), class: "btn btn-sm btn-success"  %>
+          </td>
+          <td scope="row">
+            <%= link_to "削除", admin_genre_path(genre), method: :delete, class: "btn btn-sm btn-danger"  %>
+          </td>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+   <%= paginate @genres %>
+  </div>
+
+
+</div>
