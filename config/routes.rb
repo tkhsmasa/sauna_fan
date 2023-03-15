@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     # URL/admin/genres...
     resources :genres, only: [:index, :create, :edit, :update, :destroy]
+    resources :areas, only: [:index, :create, :edit, :update, :destroy]
 
   end
 
