@@ -13,15 +13,16 @@ class Admin::SaunasController < ApplicationController
       flash[:notice] = "You have created book successfully."
       redirect_to admin_sauna_path(@sauna.id)
     else
-
       render :new
     end
   end
 
   def show
+    @sauna = Sauna.find(params[:id])
   end
 
   def edit
+    @sauna = Sauna.find(params[:id])
   end
 
 

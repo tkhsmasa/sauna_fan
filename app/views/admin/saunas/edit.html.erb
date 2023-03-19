@@ -1,2 +1,81 @@
-<h1>Admin::Saunas#edit</h1>
-<p>Find me in app/views/admin/saunas/edit.html.erb</p>
+<div class="container">
+  <% if @sauna.errors.any? %>
+    <%= @sauna.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @sauna.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <h4 class="p-3">サウナ編集</h4>
+  </div>
+
+  <div class="mb-10">
+  <%= form_with model: @sauna, url: admin_sauna_path do |f| %>
+
+    <div class="form-group row">
+      <%= f.label "商品画像", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-6">
+        <%= f.file_field :sauna_image, placeholder:"ファイルを選択"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "商品名", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :name, placeholder:"商品名",  class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "商品説明", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_area :introduction, placeholder:"ここに説明文を記述します",  class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "販売価格", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5 pr-0">
+        <%= f.text_field :price, placeholder:"1000",  class: "form-control" %>
+      </div>
+      <div class="col-md-1 pl-0">
+        円
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "ジャンル", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5 pr-0">
+        <%= f.select :genre_id,options_from_collection_for_select(Genre.all, :id, :name) %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "エリア", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5 pr-0">
+        <%= f.select :area_id,options_from_collection_for_select(Area.all, :id, :name), class: "form-control" %>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <%= f.label "販売ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-2">
+        <%= f.radio_button :is_active, true %>
+        <%= f.label :"営業中" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.radio_button :is_active, false %>
+        <%= f.label :"閉業" %>
+      </div>
+    </div>
+    <div class="row  justify-content-center">
+      <div class="col-auto ">
+        <%= f.submit "変更を保存", class: "btn btn btn-success px-5 py-2" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

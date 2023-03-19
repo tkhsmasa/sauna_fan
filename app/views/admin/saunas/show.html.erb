@@ -1,8 +1,62 @@
-<h1>Admin::Saunas#show</h1>
-<p>Find me in app/views/admin/saunas/show.html.erb</p>
-
 <% if flash[:notice] %>
   <p id="notice">
    <%= flash[:notice] %>
   </p>
 <% end %>
+
+<div class="container">
+  <div class="row">
+    <h4 class="p-3">サウナ詳細</h4>
+  </div>
+  <div class="py-6 row">
+    <div class="col-md-3 offset-md-1 align-self-center">
+      <%= image_tag @sauna.get_sauna_image(100,100) %>
+    </div>
+    <div class="col-md-5 align-self-center">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td scope="row", style="width:40%">
+              サウナ名
+            </td>
+            <td>
+              <%= @sauna.name %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              詳細
+            </td>
+            <td>
+              <%= @sauna.introduction %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              入場料
+            </td>
+            <td>
+              <%= @sauna.add_tax_price.to_s(:delimited) %>(<%= @sauna.price.to_s(:delimited) %>)円
+            </td>
+          </tr>
+          <tr>
+            <td>
+
+            </td>
+            <% if @sauna.is_active == true %>
+              <th scope="row", class="text-success">営業中</th>
+            <% else %>
+              <th scope="row", class="text-muted">閉業</th>
+            <% end %>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row  justify-content-center">
+    <div class="col-auto ">
+      <%= link_to "編集する", edit_admin_sauna_path(@sauna), class: "btn btn btn-success px-5 py-2"  %>
+    </div>
+  </div>
+</div>
