@@ -1,8 +1,8 @@
 <div class="container">
-  <% if @sauna_new.errors.any? %>
-    <%= @sauna_new.errors.count %>件のエラーが発生しました
+  <% if @sauna.errors.any? %>
+    <%= @sauna.errors.count %>件のエラーが発生しました
     <ul>
-      <% @sauna_new.errors.full_messages.each do |message| %>
+      <% @sauna.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>

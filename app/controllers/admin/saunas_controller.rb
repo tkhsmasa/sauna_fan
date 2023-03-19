@@ -1,5 +1,6 @@
 class Admin::SaunasController < ApplicationController
   def index
+    @saunas = Sauna.page(params[:page]).per(10)
   end
 
   def new
@@ -7,12 +8,12 @@ class Admin::SaunasController < ApplicationController
   end
 
   def create
-    @sauna_new = Sauna.new(sauna_params)
-    if @sauna_new.save
+    @sauna = Sauna.new(sauna_params)
+    if @sauna.save
       flash[:notice] = "You have created book successfully."
-      redirect_to admin_sauna_path(@sauna_new.id)
+      redirect_to admin_sauna_path(@sauna.id)
     else
-      @sauna = Sauna.new
+
       render :new
     end
   end

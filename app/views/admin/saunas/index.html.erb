@@ -1,2 +1,53 @@
-<h1>Admin::Saunas#index</h1>
-<p>Find me in app/views/admin/saunas/index.html.erb</p>
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col-md-3 py-3">
+      <h4>サウナ一覧</h4>
+    </div>
+    <div class="col-md-3 py-3">
+      <%= link_to new_admin_sauna_path do %>
+        新規追加
+        <!--<i class="fal fa-plus-circle"></i>-->
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <th scope="col", style="width:10%">サウナid</th>
+          <th scope="col", style="width:25%">サウナ名</th>
+          <th scope="col", style="width:25%">エリア</th>
+          <th scope="col", style="width:25%">ジャンル</th>
+          <th scope="col", style="width:15%">ステータス</th>
+        </thead>
+        <% @saunas.each do |sauna| %>
+        <tbody>
+          <td scope="row">
+            <%= sauna.id %>
+          </td>
+          <td scope="row">
+            <%= link_to admin_sauna_path(sauna.id) do %>
+              <%= sauna.name %>
+            <% end %>
+          </td>
+          <td scope="row">
+            <%= sauna.area.name %>
+          </td>
+          <td scope="row">
+            <%= sauna.genre.name %>
+          </td>
+
+          <% if sauna.is_active == true %>
+            <th scope="row", class="text-success">営業中</th>
+          <% else %>
+            <th scope="row", class="text-muted">閉業</th>
+          <% end %>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+   <%= paginate @saunas %>
+  </div>
+</div>
