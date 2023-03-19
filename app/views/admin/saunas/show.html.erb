@@ -1,2 +1,8 @@
 <h1>Admin::Saunas#show</h1>
 <p>Find me in app/views/admin/saunas/show.html.erb</p>
+
+<% if flash[:notice] %>
+  <p id="notice">
+   <%= flash[:notice] %>
+  </p>
+<% end %>

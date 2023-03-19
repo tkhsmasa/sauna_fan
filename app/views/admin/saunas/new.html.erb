@@ -1,8 +1,8 @@
 <div class="container">
-  <% if @sauna.errors.any? %>
-    <%= @sauna.errors.count %>件のエラーが発生しました
+  <% if @sauna_new.errors.any? %>
+    <%= @sauna_new.errors.count %>件のエラーが発生しました
     <ul>
-      <% @sauna.errors.full_messages.each do |message| %>
+      <% @sauna_new.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="mb-10">
-  <%= form_with model: @sauna, url: new_admin_sauna_path do |f| %>
+  <%= form_with model: @sauna, url: admin_saunas_path do |f| %>
 
     <div class="form-group row">
       <%= f.label "商品画像", class: "col-md-2 offset-md-2 col-form-label" %>

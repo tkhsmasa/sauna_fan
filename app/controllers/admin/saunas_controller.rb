@@ -7,9 +7,10 @@ class Admin::SaunasController < ApplicationController
   end
 
   def create
-    @sauna = Sauna.new(sauna_params)
-    if @sauna.save
-      redirect_to admin_sauna_path(@sauna.id)
+    @sauna_new = Sauna.new(sauna_params)
+    if @sauna_new.save
+      flash[:notice] = "You have created book successfully."
+      redirect_to admin_sauna_path(@sauna_new.id)
     else
       @sauna = Sauna.new
       render :new
