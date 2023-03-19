@@ -8,6 +8,7 @@ class CreateSaunas < ActiveRecord::Migration[6.1]
       t.text :introduction
       t.integer :price, null: false
       t.string :business_hours
+      t.boolean :sales_state, null: false, default: false
       t.boolean :is_active, null: false, default: false
       t.timestamps
     end

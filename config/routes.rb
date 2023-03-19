@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get 'users/index'
+    get 'users/show'
+    get 'users/edit'
+  end
+  namespace :admin do
     root to: 'homes#top'
     # URL/admin/saunas...
     resources :saunas, except: [:destroy]
+
+    resources :users, except: [:destroy]
 
     # URL/admin/genres...
     resources :genres, only: [:index, :create, :edit, :update, :destroy]

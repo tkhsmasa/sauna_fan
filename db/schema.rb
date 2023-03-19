@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2023_03_19_041044) do
     t.text "introduction"
     t.integer "price", null: false
     t.string "business_hours"
+    t.boolean "sales_state", default: false, null: false
     t.boolean "is_active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

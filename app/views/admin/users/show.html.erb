@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="py-6 row">
+    <h4 class="p-3"><%= @user.last_name %><%= @user.first_name %>さんの会員詳細</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td scope="row", style="width:40%">
+              会員ID
+            </td>
+            <td>
+              <%= @user.id %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              氏名
+            </td>
+            <td>
+              <%= @user.last_name %><%= @user.first_name %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+             フリガナ
+            </td>
+            <td>
+              <%= @user.last_name_kana %><%= @user.first_name_kana %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              郵便番号
+            </td>
+            <td>
+             <%= @user.postal_code %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              住所
+            </td>
+            <td>
+              <%= @user.address%>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              電話番号
+            </td>
+            <td>
+              <%= @user.telephone_number %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              メールアドレス
+            </td>
+            <td>
+             <%= @user.email %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              会員ステータス
+            </td>
+            <% if @user.is_deleted == true %>
+              <th class="text-muted">退会</th>
+            <% else %>
+              <th class="text-success">有効</th>
+            <% end %>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row  justify-content-center">
+    <div class="col-auto ">
+      <%= link_to "編集する", edit_admin_user_path(@user), class: "btn btn btn-success px-5 py-2"  %>
+    </div>
+  </div>
+</div>

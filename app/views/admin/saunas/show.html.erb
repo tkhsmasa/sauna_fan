@@ -43,13 +43,25 @@
             <td>
 
             </td>
-            <% if @sauna.is_active == true %>
-              <th scope="row", class="text-success">営業中</th>
+            <% if @sauna.sales_state == true %>
+              <th scope="row", class="text-success">閉業</th>
             <% else %>
-              <th scope="row", class="text-muted">閉業</th>
+              <th scope="row", class="text-muted">営業中</th>
             <% end %>
 
           </tr>
+          <tr>
+            <td>
+
+            </td>
+            <% if @sauna.is_active == true %>
+              <th scope="row", class="text-success">非公開</th>
+            <% else %>
+              <th scope="row", class="text-muted">公開</th>
+            <% end %>
+
+          </tr>
+
         </tbody>
       </table>
     </div>

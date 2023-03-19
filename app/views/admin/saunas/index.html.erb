@@ -18,7 +18,7 @@
           <th scope="col", style="width:25%">サウナ名</th>
           <th scope="col", style="width:25%">エリア</th>
           <th scope="col", style="width:25%">ジャンル</th>
-          <th scope="col", style="width:15%">ステータス</th>
+          <th scope="col", style="width:15%"></th>
         </thead>
         <% @saunas.each do |sauna| %>
         <tbody>
@@ -38,9 +38,9 @@
           </td>
 
           <% if sauna.is_active == true %>
-            <th scope="row", class="text-success">営業中</th>
+            <th scope="row", class="text-success">非公開</th>
           <% else %>
-            <th scope="row", class="text-muted">閉業</th>
+            <th scope="row", class="text-muted">公開</th>
           <% end %>
         </tbody>
         <% end %>

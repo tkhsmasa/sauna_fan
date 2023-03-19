@@ -1,0 +1,94 @@
+<div class="container">
+  <% if @user.errors.any? %>
+    <%= @user.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <h4 class="p-3"><%= @user.last_name %><%= @user.first_name %>さんの会員編集</h4>
+  </div>
+
+  <div class="mb-10">
+    <div class="form-group row">
+      <label class="col-md-2 offset-md-2 col-form-label"  %>
+         会員ID
+      </label>
+      <div class="col-md-3">
+        <%= @user.id %>
+      </div>
+    </div>
+
+  <%= form_with model: @user, url: admin_user_path do |f| %>
+    <div class="form-group row">
+      <%= f.label "氏名", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-3">
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+      <div class="col-md-3">
+        <%= f.text_field :first_name,  class: "form-control" %>
+      </div>
+
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "フリガナ", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-3">
+        <%= f.text_field :last_name_kana,  class: "form-control" %>
+      </div>
+      <div class="col-md-3">
+        <%= f.text_field :first_name_kana,  class: "form-control" %>
+      </div>
+
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "郵便番号", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-3">
+        <%= f.number_field :postal_code, class: "form-control"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "住所", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-6">
+        <%= f.text_field :address, class: "form-control"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "電話番号", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-3">
+        <%= f.number_field :telephone_number, class: "form-control"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "メールアドレス", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-3">
+        <%= f.email_field :email, class: "form-control"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "会員ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-2">
+        <%= f.radio_button :is_deleted, false %>
+        <%= f.label :"有効" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.radio_button :is_deleted, true %>
+        <%= f.label :"無効" %>
+      </div>
+    </div>
+    <div class="row  justify-content-center">
+      <div class="col-auto ">
+        <%= f.submit "変更を保存", class: "btn btn btn-success px-5 py-2" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
