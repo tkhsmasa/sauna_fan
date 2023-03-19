@@ -6,6 +6,16 @@ class Admin::SaunasController < ApplicationController
     @sauna = Sauna.new
   end
 
+  def create
+    @sauna = Sauna.new(sauna_params)
+    if @sauna.save
+      redirect_to admin_sauna_path(@sauna.id)
+    else
+      @sauna = Sauna.new
+      render :new
+    end
+  end
+
   def show
   end
 
