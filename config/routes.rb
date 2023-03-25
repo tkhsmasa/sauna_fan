@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
+
+
+  namespace :public do
+    get 'saunas/index'
+    get 'saunas/show'
   end
-  namespace :admin do
+  scope module: :public do
     root to: 'homes#top'
-    # URL/admin/saunas...
+    # URL/users...
+    get 'users/my_page' => "users#show", as: "my_page"
+    get 'users/information/edit' => "users#edit"
+    patch 'users/information' => "users#update"
+    get 'users/unsubscribe'
+    patch 'users/withdraw'
     resources :saunas, except: [:destroy]
 
+  end
+
+  namespace :admin do
+    get 'homes/top'
+    # URL/admin/saunas...
+    resources :saunas, except: [:destroy]
     resources :users, except: [:destroy]
 
     # URL/admin/genres...

@@ -17,6 +17,9 @@ class Sauna < ApplicationRecord
   end
 
   def add_tax_price
-    (price * 1.10).floor
+    (price * 1.10).floor.to_s(:delimited) + '円'
+  end
+  def address_display
+    '〒' + postal_code + ' ' + address
   end
 end

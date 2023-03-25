@@ -1,0 +1,84 @@
+<% if flash[:notice] %>
+  <p id="notice">
+   <%= flash[:notice] %>
+  </p>
+<% end %>
+<div class="container">
+  <div class="row">
+      <h4 class="m-3">マイページ</h4>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <div class="p-2">
+        <label class="pr-2">登録情報</label><%= link_to "編集する", users_information_edit_path, class: "btn btn-sm btn-success"  %>
+      </div>
+    </div>
+  </div>
+
+
+  <table class="table table-bordered", style="width:50%" >
+    <tbody>
+      <tr>
+        <th scope="row", style="width:30%">
+          氏名
+        </th>
+        <td>
+          <%= @user.last_name %><%= @user.first_name %>
+        </td>
+      </tr>
+
+      <tr>
+        <th  scope="row">
+          フリガナ
+        </th>
+        <td>
+          <%= @user.last_name_kana %><%= @user.first_name_kana %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+          郵便番号
+        </th>
+        <td>
+          〒<%= @user.postal_code %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+          住所
+        </th>
+        <td>
+          <%= @user.address%>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+          電話番号
+        </th>
+        <td>
+          <%= @user.telephone_number %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+          メールアドレス
+        </th>
+        <td>
+          <%= @user.email %>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <div class="row-md">
+    <div class="p-2">
+      <label class="pr-2">注文履歴</label><%#= link_to "一覧を見る", orders_path, class: "btn btn-sm btn-primary"  %>
+    </div>
+  </div>
+</div>

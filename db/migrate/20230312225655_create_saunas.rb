@@ -5,6 +5,8 @@ class CreateSaunas < ActiveRecord::Migration[6.1]
       t.integer :genre_id, null: false
       t.integer :area_id, null: false
       t.string :name, null: false
+      t.string :postal_code, null: false
+      t.string :address, null: false
       t.text :introduction
       t.integer :price, null: false
       t.string :business_hours

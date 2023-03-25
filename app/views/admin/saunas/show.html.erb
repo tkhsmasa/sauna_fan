@@ -24,6 +24,15 @@
             </td>
           </tr>
           <tr>
+            <td scope="row", style="width:40%">
+              住所
+            </td>
+            <td>
+              <%= @sauna.address_display %>
+            </td>
+          </tr>
+
+          <tr>
             <td>
               詳細
             </td>
@@ -48,27 +57,14 @@
             <% else %>
               <th scope="row", class="text-muted">営業中</th>
             <% end %>
-
           </tr>
-          <tr>
-            <td>
-
-            </td>
-            <% if @sauna.is_active == true %>
-              <th scope="row", class="text-success">非公開</th>
-            <% else %>
-              <th scope="row", class="text-muted">公開</th>
-            <% end %>
-
-          </tr>
-
         </tbody>
       </table>
     </div>
   </div>
   <div class="row  justify-content-center">
     <div class="col-auto ">
-      <%= link_to "編集する", edit_admin_sauna_path(@sauna), class: "btn btn btn-success px-5 py-2"  %>
+      <%#= link_to "レビューを書く", edit_admin_sauna_path(@sauna), class: "btn btn btn-success px-5 py-2"  %>
     </div>
   </div>
 </div>

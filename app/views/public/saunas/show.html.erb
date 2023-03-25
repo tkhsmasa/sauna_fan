@@ -1,0 +1,74 @@
+
+<div class="container">
+  <div class="py-6 row justify-content-center">
+    <div class="col-md-12 align-self-center">
+      <%#= image_tag @item_show.get_item_image %>
+    </div>
+  </div>
+
+    <div class="col-md-4 align-self-center">
+        <h4><strong><%= @sauna.name %> </strong></h4>
+    </div>
+
+    <div class="col-md-8 align-self-center">
+      <table class="table table-bordered" >
+        <tbody>
+          <tr>
+            <th scope="row">
+              施設名
+            </th>
+            <td>
+              <%= @sauna.name %>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              住所
+            </th>
+            <td>
+              <%= @sauna.address_display %>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              詳細
+            </th>
+            <td>
+              <%= @sauna.introduction %>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              入湯料(税込)
+            </th>
+            <td>
+              <%= @sauna.add_tax_price %>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              営業時間
+            </th>
+            <td>
+              <%= @sauna.business_hours %>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+
+            </th>
+            <% if @sauna.sales_state == true %>
+              <td class="text-muted">閉業</td>
+            <% else %>
+              <td class="text-success">営業中</td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

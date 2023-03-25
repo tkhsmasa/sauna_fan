@@ -24,9 +24,24 @@
     <div class="form-group row">
       <%= f.label "サウナ名", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5">
-        <%= f.text_field :name, placeholder:"商品名",  class: "form-control" %>
+        <%= f.text_field :name, placeholder:"施設名",  class: "form-control" %>
       </div>
     </div>
+
+    <div class="form-group row">
+      <%= f.label "郵便番号", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :postal_code, placeholder:"0000000",  class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "住所", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :address,  class: "form-control" %>
+      </div>
+    </div>
+
 
     <div class="form-group row">
       <%= f.label "サウナ説明", class: "col-md-2 offset-md-2 col-form-label" %>
@@ -58,9 +73,7 @@
         <%= f.select :area_id,options_from_collection_for_select(Area.all, :id, :name), include_blank: true, class: "form-control" %>
       </div>
     </div>
-
-
-
+    
     <div class="form-group row">
       <%= f.label "営業ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
