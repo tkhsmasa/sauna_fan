@@ -1,6 +1,7 @@
 class Sauna < ApplicationRecord
   belongs_to :genre
   belongs_to :area
+  has_many :reviews, dependent: :destroy
 
   validates :name, presence: true
   validates :price, presence: true

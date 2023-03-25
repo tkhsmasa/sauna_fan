@@ -1,0 +1,58 @@
+<% if flash[:notice] %>
+  <p id="notice">
+   <%= flash[:notice] %>
+  </p>
+<% end %>
+<div class="container">
+  <div class="row">
+    <%= link_to  sauna_path(@review.sauna) do %>
+      <h4 class="m-3"><%= @review.sauna.name %></h4>
+    <% end %>
+  </div>
+  <div class="row">
+      <h4 class="m-3">レビュー詳細</h4>
+  </div>
+
+  <table class="table table-bordered" >
+    <tbody>
+      <tr>
+        <th scope="row">
+          訪問日
+        </th>
+        <td>
+          <%= @review.visit_date %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+          星
+        </th>
+        <td>
+          <%= @review.graded_evaluation %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+
+        </th>
+        <td>
+          <%= @review.review_title %>
+        </td>
+      </tr>
+
+      <tr>
+        <th scope="row">
+
+        </th>
+        <td>
+          <%= @review.review_detail %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
+  <%= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
+</div>

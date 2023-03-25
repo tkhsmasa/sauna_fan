@@ -1,0 +1,61 @@
+<div class="container">
+  <% if @review.errors.any? %>
+    <%= @review.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <h4 class="p-3">レビュー登録</h4>
+  </div>
+
+  <div class="mb-10">
+  <%= form_with model: @review, url: sauna_reviews_path do |f| %>
+
+    <div class="form-group row">
+      <%= f.label "タイトル", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :review_title, placeholder:"タイトル",  class: "form-control"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "レビュー詳細", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :review_detail, placeholder:"詳細",  class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "星", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.label "星1" %>
+        <%= f.radio_button :graded_evaluation, 1 %>
+        <%= f.label "星2" %>
+        <%= f.radio_button :graded_evaluation, 2 %>
+        <%= f.label "星3" %>
+        <%= f.radio_button :graded_evaluation, 3 %>
+        <%= f.label "星4" %>
+        <%= f.radio_button :graded_evaluation, 4 %>
+        <%= f.label "星5" %>
+        <%= f.radio_button :graded_evaluation, 5 %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "訪問日", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.date_field :visit_date, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row  justify-content-center">
+      <div class="col-auto ">
+        <%= f.submit "投稿", class: "btn btn btn-success px-5 py-2" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

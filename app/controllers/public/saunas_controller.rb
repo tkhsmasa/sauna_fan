@@ -4,5 +4,6 @@ class Public::SaunasController < ApplicationController
 
   def show
     @sauna = Sauna.find(params[:id])
+    @reviews = @sauna.reviews
   end
 end

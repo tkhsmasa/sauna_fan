@@ -7,6 +7,7 @@
   </div>
 
     <div class="col-md-4 align-self-center">
+      
         <h4><strong><%= @sauna.name %> </strong></h4>
     </div>
 
@@ -70,5 +71,25 @@
           </tr>
         </tbody>
       </table>
+      <%= link_to "レビュー投稿", new_sauna_review_path(@sauna), class: "btn btn btn-success px-5 py-2"  %>
     </div>
+
+
+
+  <div class="row">
+    <p>レビュー件数：<%= @reviews.count %></p>
+  </div>
+
+  <% @reviews.each do |review| %>
+  <div class="row">
+    <%= review.user.full_name %>
+    <%= review.graded_evaluation %>
+    <%= review.visit_date.strftime('%Y/%m/%d') %>
+    <%= link_to  sauna_review_path(@sauna,review) do %>
+      <%= review.review_title %>
+    <% end %>
+    <%= review.review_detail %>
+  </div>
+  <% end %>
+
 </div>

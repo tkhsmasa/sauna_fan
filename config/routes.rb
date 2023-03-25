@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
 
-  namespace :public do
-    get 'saunas/index'
-    get 'saunas/show'
-  end
   scope module: :public do
     root to: 'homes#top'
     # URL/users...
@@ -13,7 +9,9 @@ Rails.application.routes.draw do
     patch 'users/information' => "users#update"
     get 'users/unsubscribe'
     patch 'users/withdraw'
-    resources :saunas, except: [:destroy]
+    resources :saunas, only: [:index, :show] do
+      resources :reviews, except: [:index]
+    end
 
   end
 

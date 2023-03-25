@@ -19,6 +19,7 @@ class Admin::SaunasController < ApplicationController
 
   def show
     @sauna = Sauna.find(params[:id])
+    @reviews = @sauna.reviews
   end
 
   def edit
