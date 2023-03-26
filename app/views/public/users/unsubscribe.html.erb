@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="row  justify-content-around">
-    <%= form_with model: @user, url: users_withdraw_path do |f| %>
+    <%= form_with model: @user, url: user_withdraw_path(@user) do |f| %>
     <div class="col-auto">
       <%= f.hidden_field :is_deleted, :value => true %>
       <%= f.submit '退会する', class: "btn btn btn-danger"  %>
@@ -19,7 +19,7 @@
      <% end %>
 
     <div class="col-auto">
-      <%= link_to '退会しない', my_page_path, class: "btn btn btn-primary"  %>
+      <%= link_to '退会しない', user_path(@user), class: "btn btn btn-primary"  %>
     </div>
 
   </div>

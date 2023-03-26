@@ -2,6 +2,7 @@ class Sauna < ApplicationRecord
   belongs_to :genre
   belongs_to :area
   has_many :reviews, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   validates :name, presence: true
   validates :price, presence: true
@@ -20,7 +21,12 @@ class Sauna < ApplicationRecord
   def add_tax_price
     (price * 1.10).floor.to_s(:delimited) + '円'
   end
+
   def address_display
     '〒' + postal_code + ' ' + address
+  end
+
+  def bookmark_by?(user)
+    bookmarks.exists?(user_id: user.id)
   end
 end

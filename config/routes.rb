@@ -4,13 +4,15 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     # URL/users...
-    get 'users/my_page' => "users#show", as: "my_page"
-    get 'users/information/edit' => "users#edit"
-    patch 'users/information' => "users#update"
-    get 'users/unsubscribe'
-    patch 'users/withdraw'
+    resources :users, only: [:show, :edit, :update] do
+      get 'unsubscribe'
+      patch 'withdraw'
+      resources :bookmarks, only: [:index]
+
+    end
     resources :saunas, only: [:index, :show] do
       resources :reviews, except: [:index]
+      resource :bookmarks, only: [:create, :destroy]
     end
 
   end

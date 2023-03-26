@@ -6,8 +6,22 @@
     </div>
   </div>
 
+  <% if @sauna.bookmark_by?(current_user) %>
+    <p>
+      <%= link_to sauna_bookmarks_path(@sauna), method: :delete do %>
+        ♥<%= @sauna.bookmarks.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to sauna_bookmarks_path(@sauna), method: :post do %>
+        ♡<%= @sauna.bookmarks.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+
     <div class="col-md-4 align-self-center">
-      
+
         <h4><strong><%= @sauna.name %> </strong></h4>
     </div>
 
