@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_25_073624) do
+ActiveRecord::Schema.define(version: 2023_03_26_035429) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2023_03_25_073624) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "review_id"
+    t.text "comment_detail"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -84,10 +92,11 @@ ActiveRecord::Schema.define(version: 2023_03_25_073624) do
 
   create_table "saunas", force: :cascade do |t|
     t.integer "genre_id", null: false
-    t.integer "area_id", null: false
     t.string "name", null: false
     t.string "postal_code", null: false
-    t.string "address", null: false
+    t.string "address1", null: false
+    t.string "address2", null: false
+    t.string "address3", null: false
     t.text "introduction"
     t.integer "price", null: false
     t.string "business_hours"

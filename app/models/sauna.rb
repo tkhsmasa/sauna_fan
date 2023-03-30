@@ -1,12 +1,13 @@
 class Sauna < ApplicationRecord
   belongs_to :genre
-  belongs_to :area
+
   has_many :reviews, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
   validates :name, presence: true
   validates :price, presence: true
-  validates :is_active, presence: true
+  validates :is_active, inclusion: {in: [true, false]}
+  validates :sales_state, inclusion: {in: [true, false]}
 
   has_one_attached :sauna_image
 
@@ -23,10 +24,13 @@ class Sauna < ApplicationRecord
   end
 
   def address_display
-    '〒' + postal_code + ' ' + address
+    '〒' + postal_code + ' ' + address1+ ' ' + address2+ ' ' + address3
   end
 
   def bookmark_by?(user)
     bookmarks.exists?(user_id: user.id)
   end
+
+
+
 end

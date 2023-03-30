@@ -76,9 +76,36 @@
   </table>
 
 
-  <div class="row-md">
-    <div class="p-2">
-      <label class="pr-2">注文履歴</label><%#= link_to "一覧を見る", orders_path, class: "btn btn-sm btn-primary"  %>
-    </div>
-  </div>
+自身のブックマーク
+
+<div class="container">
+  <% @bookmarks.each do |bookmark| %>
+    <%= link_to  sauna_path(bookmark.sauna) do %>
+      <h4 class="m-3"><%= bookmark.sauna.name %></h4>
+    <% end %>
+
+  <% end %>
 </div>
+
+
+自身のレビュー
+
+<div class="container">
+  <% @reviews.each do |review| %>
+    <%= link_to  sauna_path(review.sauna) do %>
+      <h4 class="m-3"><%= review.sauna.name %></h4>
+    <% end %>
+
+    <%= review.visit_date %>
+    <%= review.graded_evaluation %>
+    <%= link_to  sauna_review_path(review.sauna,review) do %>
+      <%= review.review_title %>
+    <% end %>
+    <%= review.review_detail %>
+
+  <% end %>
+
+  <%#= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
+  <%#= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
+</div>
+

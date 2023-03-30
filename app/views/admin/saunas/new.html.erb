@@ -36,9 +36,23 @@
     </div>
 
     <div class="form-group row">
-      <%= f.label "住所", class: "col-md-2 offset-md-2 col-form-label" %>
+      <%= f.label "都道府県", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5">
-        <%= f.text_field :address,  class: "form-control" %>
+        <%= f.text_field :address1,  class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label "市町村", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :address2,  class: "form-control" %>
+      </div>
+    </div>
+
+　　<div class="form-group row">
+      <%= f.label "以降の住所", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :address3,  class: "form-control" %>
       </div>
     </div>
 
@@ -67,32 +81,32 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <%= f.label "エリア", class: "col-md-2 offset-md-2 col-form-label" %>
-      <div class="col-md-5 pr-0">
-        <%= f.select :area_id,options_from_collection_for_select(Area.all, :id, :name), include_blank: true, class: "form-control" %>
-      </div>
-    </div>
-    
+    <!--<div class="form-group row">-->
+      <%#= f.label "エリア", class: "col-md-2 offset-md-2 col-form-label" %>
+    <!--  <div class="col-md-5 pr-0">-->
+        <%#= f.select :area_id,options_from_collection_for_select(Area.all, :id, :name), include_blank: true, class: "form-control" %>
+    <!--  </div>-->
+    <!--</div>-->
+
     <div class="form-group row">
       <%= f.label "営業ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
-        <%= f.radio_button :sales_state, true %>
+        <%= f.radio_button :sales_state, true, id: "sales_states1" %>
         <%= f.label :"閉業" %>
       </div>
       <div class="col-md-2">
-        <%= f.radio_button :sales_state, false %>
+        <%= f.radio_button :sales_state, false, id: "sales_states2" %>
         <%= f.label :"営業中" %>
       </div>
     </div>
     <div class="form-group row">
       <%= f.label "公開状況", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
-        <%= f.radio_button :is_active, true %>
+        <%= f.radio_button :is_active, true, id: "is_active1" %>
         <%= f.label :"非公開" %>
       </div>
       <div class="col-md-2">
-        <%= f.radio_button :is_active, false %>
+        <%= f.radio_button :is_active, false, id: "is_active2" %>
         <%= f.label :"公開" %>
       </div>
     </div>

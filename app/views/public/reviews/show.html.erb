@@ -55,4 +55,5 @@
 
   <%= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
   <%= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
+  <%= link_to "コメント投稿", new_sauna_review_comment_path(@review.sauna,@review), class: "btn btn btn-success px-5 py-2"  %>
 </div>

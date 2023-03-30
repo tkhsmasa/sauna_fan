@@ -1,0 +1,33 @@
+<% if flash[:notice] %>
+  <p id="notice">
+   <%= flash[:notice] %>
+  </p>
+<% end %>
+<div class="container">
+  <div class="row">
+    <%= link_to  sauna_path(@sauna) do %>
+      <h4 class="m-3"><%= @sauna.name %></h4>
+    <% end %>
+  </div>
+
+  <h4 class="m-3">レビュー</h4>
+
+  <div>
+    <%= @review.review_title %>
+    <%= @review.review_detail %>
+  </div>
+
+
+  <h4 class="m-3">コメント</h4>
+  <div>
+  　<% @coment.coment_detail %>
+  　<% @coment.created_at %>
+  　<% if @coment.created_at != @coment.updated_at %>
+  　 <p>編集済み</p> <% @coment.updated_at %>
+  　<% end %>
+  </div>
+
+
+  <%= link_to "編集する", edit_sauna_review_comment_path(@sauna,@review,@coment), class: "btn btn-sm btn-success"  %>
+  <%= link_to "削除する", sauna_review_comment_path(@sauna,@review,@coment), method: :delete, class: "btn btn-sm btn-danger"  %>
+</div>

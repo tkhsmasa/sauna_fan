@@ -1,0 +1,30 @@
+<div class="container">
+  <% if @comment.errors.any? %>
+    <%= @comment.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="row">
+    <h4 class="p-3">コメント編集</h4>
+  </div>
+
+  <div class="mb-10">
+  <%= form_with model: @comment, url: sauna_review_comment_path do |f| %>
+
+    <div class="form-group row">
+      <%= f.label "タイトル", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :comment_detail, placeholder:"タイトル",  class: "form-control"  %>
+      </div>
+    </div>
+    <div class="row  justify-content-center">
+      <div class="col-auto ">
+        <%= f.submit "更新", class: "btn btn btn-success px-5 py-2" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

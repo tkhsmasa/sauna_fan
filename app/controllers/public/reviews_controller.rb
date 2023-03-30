@@ -23,7 +23,7 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
-   def update
+  def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
       flash[:notice] = "You have created review successfully."
