@@ -12,12 +12,12 @@
   </div>
 
   <div class="mb-10">
-  <%= form_with model: @comment, url: sauna_review_comment_path do |f| %>
+  <%= form_with model: @comment, url: sauna_review_comments_path(@review.sauna.id,@review) do |f| %>
 
     <div class="form-group row">
       <%= f.label "タイトル", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5">
-        <%= f.text_field :comment_detail, placeholder:"タイトル",  class: "form-control"  %>
+        <%= f.text_field :comment_detail, placeholder:"コメント",  class: "form-control"  %>
       </div>
     </div>
 

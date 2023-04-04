@@ -11,6 +11,13 @@ class Sauna < ApplicationRecord
 
   has_one_attached :sauna_image
 
+  scope :is_active, -> { where(is_active: false) }
+  
+  scope :search, -> (search_params) do  
+    return if search_params.blank? 
+    
+  end
+
   def get_sauna_image(width, height)
     unless sauna_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

@@ -6,6 +6,16 @@
     </div>
   </div>
 
+
+
+  <div>
+    <h4><strong><%= @sauna.name %> </strong></h4>
+  </div>
+
+  <div>
+    <p><%= @sauna.introduction %></p>
+  </div>
+
   <% if @sauna.bookmark_by?(current_user) %>
     <p>
       <%= link_to sauna_bookmarks_path(@sauna), method: :delete do %>
@@ -20,90 +30,98 @@
     </p>
   <% end %>
 
-    <div class="col-md-4 align-self-center">
-
-        <h4><strong><%= @sauna.name %> </strong></h4>
-    </div>
-
-    <div class="col-md-8 align-self-center">
-      <table class="table table-bordered" >
-        <tbody>
-          <tr>
-            <th scope="row">
-              施設名
-            </th>
-            <td>
-              <%= @sauna.name %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              住所
-            </th>
-            <td>
-              <%= @sauna.address_display %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              詳細
-            </th>
-            <td>
-              <%= @sauna.introduction %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              入湯料(税込)
-            </th>
-            <td>
-              <%= @sauna.add_tax_price %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              営業時間
-            </th>
-            <td>
-              <%= @sauna.business_hours %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-
-            </th>
-            <% if @sauna.sales_state == true %>
-              <td class="text-muted">閉業</td>
-            <% else %>
-              <td class="text-success">営業中</td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
-      <%= link_to "レビュー投稿", new_sauna_review_path(@sauna), class: "btn btn btn-success px-5 py-2"  %>
-    </div>
-
-
-
-  <div class="row">
+  <div>
+    口コミ<%= link_to "レビュー投稿", new_sauna_review_path(@sauna), class: "btn btn-sm btn-success"  %>
     <p>レビュー件数：<%= @reviews.count %></p>
   </div>
 
   <% @reviews.each do |review| %>
-  <div class="row">
+  <div class ="pb-3">
     <%= review.user.full_name %>
-    <%= review.graded_evaluation %>
-    <%= review.visit_date.strftime('%Y/%m/%d') %>
-    <%= link_to  sauna_review_path(@sauna,review) do %>
-      <%= review.review_title %>
-    <% end %>
-    <%= review.review_detail %>
+    <div class="card">
+      <div class="card-header">
+        <%= link_to  sauna_review_path(@sauna,review) do %>
+          <%= review.review_title %>
+        <% end %>
+      </div>
+      <div class="card-body">
+  　    <p class="card-text">
+          <%= review.review_detail %>
+  　    </p>
+        <div>
+
+         <%= review.graded_evaluation %>
+         <%= review.visit_date.strftime('%Y/%m') %>
+        </div>
+      </div>
+    </div>
   </div>
   <% end %>
+
+
+  <div>
+    施設情報
+    <table class="table" >
+      <tbody>
+        <tr>
+          <th class="table-info">
+            施設名
+          </th>
+          <td>
+            <%= @sauna.name %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="table-info">
+            住所
+          </th>
+          <td>
+            <%= @sauna.address_display %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="table-info">
+            詳細
+          </th>
+          <td>
+            <%= @sauna.introduction %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="table-info">
+            入湯料(税込)
+          </th>
+          <td>
+            <%= @sauna.add_tax_price %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="table-info">
+            営業時間
+          </th>
+          <td>
+            <%= @sauna.business_hours %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="table-info">
+
+          </th>
+          <% if @sauna.sales_state == true %>
+            <td class="text-muted">閉業</td>
+          <% else %>
+            <td class="text-success">営業中</td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
 
 </div>

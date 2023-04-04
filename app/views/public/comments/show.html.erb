@@ -19,15 +19,15 @@
 
 
   <h4 class="m-3">コメント</h4>
-  <div>
-  　<% @coment.coment_detail %>
-  　<% @coment.created_at %>
-  　<% if @coment.created_at != @coment.updated_at %>
-  　 <p>編集済み</p> <% @coment.updated_at %>
+  　<%= @comment.comment_detail %>
+  
+  　<%= @comment.created_at %>
+  　<% if @comment.created_at != @comment.updated_at %>
+  　 <p>編集済み</p> <% @comment.updated_at %>
   　<% end %>
   </div>
 
 
-  <%= link_to "編集する", edit_sauna_review_comment_path(@sauna,@review,@coment), class: "btn btn-sm btn-success"  %>
-  <%= link_to "削除する", sauna_review_comment_path(@sauna,@review,@coment), method: :delete, class: "btn btn-sm btn-danger"  %>
+  <%= link_to "編集する", edit_sauna_review_comment_path(@sauna,@review,@comment), class: "btn btn-sm btn-success"  %>
+  <%= link_to "削除する", sauna_review_comment_path(@sauna,@review,@comment), method: :delete, class: "btn btn-sm btn-danger"  %>
 </div>

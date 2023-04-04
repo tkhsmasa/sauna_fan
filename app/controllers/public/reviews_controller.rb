@@ -17,6 +17,7 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @comments = @review.comments.page(params[:page]).per(10)
   end
 
   def edit

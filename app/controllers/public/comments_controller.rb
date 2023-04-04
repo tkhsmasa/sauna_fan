@@ -1,6 +1,7 @@
 class Public::CommentsController < ApplicationController
-
   def new
+    @review = Review.find(params[:review_id])
+    @sauna = Sauna.find(params[:sauna_id])
     @comment = Comment.new
   end
 
@@ -10,7 +11,7 @@ class Public::CommentsController < ApplicationController
     @comment.review_id = @review.id
     if @comment.save
       flash[:notice] = "You have created comment successfully."
-      redirect_to sauna_review_comment_path(@review.sauna_id,@review,@comment)
+      redirect_to sauna_review_comment_path(@comment.review.sauna,@comment.review,@comment)
     else
       render :new
     end
@@ -18,7 +19,7 @@ class Public::CommentsController < ApplicationController
 
   def show
     @comment = Comment.find(params[:id])
-    @review = @coment.review
+    @review = @comment.review
     @sauna = @review.sauna
   end
 
@@ -39,13 +40,13 @@ class Public::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to sauna_review_path(@comment.review.sauna_id,@coment.review_id)
+    redirect_to sauna_review_path(@comment.review.sauna_id,@comment.review_id)
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:user_id, :review_id, :comment)
+    params.require(:comment).permit(:user_id, :review_id, :comment_detail)
   end
 
 
