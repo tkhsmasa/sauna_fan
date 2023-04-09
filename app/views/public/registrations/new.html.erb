@@ -55,10 +55,11 @@
   </div>
 
   <div class="form-group row ">
-    <%= f.label "パスワード", class: "col-md-3 offset-md-1 col-form-label" %>
-    <% if @minimum_password_length %>
-     (<%= @minimum_password_length %> 文字以上)
-    <% end %>
+     <% if @minimum_password_length %>
+      <%= f.label "パスワード(#{@minimum_password_length} 文字以上)", class: "col-md-3 offset-md-1 col-form-label" %>
+     <% else %>
+      <%= f.label "パスワード", class: "col-md-3 offset-md-1 col-form-label" %>
+     <% end %>
     <div class="col-md-3">
       <%= f.password_field :password, autocomplete: "new-password",  class: "form-control" %>
     </div>

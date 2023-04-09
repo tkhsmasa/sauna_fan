@@ -1,9 +1,13 @@
-<h1>Public::Saunas#index</h1>
-<p>Find me in app/views/public/saunas/index.html.erb</p>
+<%= render 'public/search', search_params: @search_params%>
+
 <div class="container">
   <div class="row justify-content-between">
     <div class="col-md-3 py-3">
+    <% if @search_params.present? %>
+      <h4><%= "#{@search_params[:name]+@search_params[:address]+@search_params[:genre]}の検索結果" %></h4>
+    <% else %>
       <h4>サウナ一覧</h4>
+    <% end %>
     </div>
   </div>
   <div class="row">
@@ -15,7 +19,8 @@
           <th scope="col", style="width:25%">ジャンル</th>
           <th scope="col", style="width:15%"></th>
         </thead>
-        <% @saunas.each do |sauna| %>
+          <% @saunas.each do |sauna| %>
+
         <tbody>
           <td scope="row">
             <%= sauna.id %>
@@ -36,11 +41,12 @@
             <th scope="row", class="text-success">公開</th>
           <% end %>
         </tbody>
-        <% end %>
+          <% end %>
+
       </table>
     </div>
   </div>
   <div class="d-flex justify-content-center">
-   <%= paginate @saunas %>
+   <%#= paginate @saunas %>
   </div>
 </div>

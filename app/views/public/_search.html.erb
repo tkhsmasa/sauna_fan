@@ -1,0 +1,10 @@
+<div class="search_form">
+  <%= form_with(scope: :search, url: saunas_path, method: :get, local: true) do |f| %>
+
+    <%= f.text_field :name, placeholder: '施設名', value: search_params[:name] %>
+    <%= f.text_field :address, placeholder: '住所', value: search_params[:address] %>
+    <%= f.text_field :genre, placeholder: 'ジャンル', value: search_params[:genre] %>
+
+    <%= submit_tag '検索', class: "button" %>
+  <% end %>
+</div>

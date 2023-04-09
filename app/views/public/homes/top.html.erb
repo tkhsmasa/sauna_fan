@@ -3,10 +3,15 @@
    <%= flash[:notice] %>
   </p>
 <% end %>
-<div class="container">
-  <div class="row">
+
+
+
+<div class>
+  <div class>
     <h4 class="p-3">検索</h4>
-    <div></div>
+    <div>
+      <%= render 'public/search', search_params: @search_params%>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-5">
