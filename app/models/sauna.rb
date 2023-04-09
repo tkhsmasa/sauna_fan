@@ -9,21 +9,24 @@ class Sauna < ApplicationRecord
   validates :is_active, inclusion: {in: [true, false]}
   validates :sales_state, inclusion: {in: [true, false]}
 
-  has_one_attached :sauna_image
+  has_many_attached :sauna_images
 
   scope :is_active, -> { where(is_active: false) }
-  
-  scope :search, -> (search_params) do  
-    return if search_params.blank? 
-    
+
+  scope :search, -> (search_params) do
+    return if search_params.blank?
+
   end
 
-  def get_sauna_image(width, height)
-    unless sauna_image.attached?
+  def get_sauna_images(width, height)
+    unless sauna_images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      sauna_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      sauna_images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    sauna_image.variant(resize_to_limit: [width, height]).processed
+    # sauna_images.variant(resize_to_limit: [width, height]).processed
+      sauna_images.each do |image|
+        image.variant(resize_to_limit: [width, height]).processed
+      end
   end
 
   def add_tax_price

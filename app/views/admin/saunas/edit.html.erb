@@ -17,7 +17,7 @@
     <div class="form-group row">
       <%= f.label "商品画像", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-6">
-        <%= f.file_field :sauna_image, placeholder:"ファイルを選択"  %>
+        <%= f.file_field :sauna_images, placeholder:"ファイルを選択", multiple: true  %>
       </div>
     </div>
 
@@ -106,11 +106,28 @@
         <%= f.label :"公開" %>
       </div>
     </div>
+
+
+    <% if @sauna.sauna_images.attached? %>
+      <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+      <div style="display: flex; flex-wrap: wrap; width: 750px;">
+      <% @sauna.sauna_images.each do |image| %>
+        <div style="display: flex; margin:5px 5px 5px 0;">
+          <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+          <label for="sauna_image_ids_<%= image.id %>" >
+            <%= image_tag image, size: '300x200' %>
+          </label>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+
     <div class="row  justify-content-center">
       <div class="col-auto ">
         <%= f.submit "変更を保存", class: "btn btn btn-success px-5 py-2" %>
       </div>
     </div>
+
   </div>
   <% end %>
 </div>

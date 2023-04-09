@@ -29,7 +29,24 @@
           星
         </th>
         <td>
-          <%= @review.graded_evaluation %>
+          <div class="relative-post-evaluation">
+            <span id="star-rate-<%= @review.id %>"></span>
+            <script>
+              var elem = document.getElementById('star-rate-<%= @review.id %>');
+              var opt = {
+                size: 36,
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= @review.rate %>
+              };
+              raty(elem,opt);
+            </script>
+            <%= @review.rate %>
+          </div>
+
         </td>
       </tr>
 
@@ -70,7 +87,7 @@
   　   <% if comment.created_at != comment.updated_at %>
   　     <%= comment.updated_at_ymd %> <p>に編集済み</p>
   　   <% end %>
-  　 
+
 　  </div>
 
 　</div>

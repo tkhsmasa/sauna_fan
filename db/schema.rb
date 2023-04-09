@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2023_03_26_035429) do
     t.integer "sauna_id", null: false
     t.string "review_title", null: false
     t.text "review_detail"
-    t.integer "graded_evaluation", null: false
+    t.float "rate", default: 0.0, null: false
     t.date "visit_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -6,7 +6,8 @@ class CreateReviews < ActiveRecord::Migration[6.1]
       t.integer :sauna_id, null: false
       t.string :review_title, null: false
       t.text :review_detail
-      t.integer :graded_evaluation, null: false
+      t.float :rate, null: false, default: 0
+
       t.date :visit_date, null: false
       t.timestamps
     end

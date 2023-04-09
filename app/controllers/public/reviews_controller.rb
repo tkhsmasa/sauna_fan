@@ -43,6 +43,6 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:user_id, :sauna_id, :review_title, :review_detail, :graded_evaluation, :visit_date)
+    params.require(:review).permit(:user_id, :sauna_id, :review_title, :review_detail, :rate, :visit_date)
   end
 end

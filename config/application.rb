@@ -19,5 +19,8 @@ module SaunaFan
 
     config.time_zone = 'Tokyo'
     # config.eager_load_paths << Rails.root.join("extras")
+
+    #ActiveStorage上書きしない
+    config.active_storage.replace_on_assign_to_many = false
   end
 end

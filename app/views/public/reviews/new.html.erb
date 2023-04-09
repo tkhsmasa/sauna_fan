@@ -28,21 +28,28 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <%= f.label "星", class: "col-md-2 offset-md-2 col-form-label" %>
-      <div class="col-md-5">
-        <%= f.label "星1" %>
-        <%= f.radio_button :graded_evaluation, 1 %>
-        <%= f.label "星2" %>
-        <%= f.radio_button :graded_evaluation, 2 %>
-        <%= f.label "星3" %>
-        <%= f.radio_button :graded_evaluation, 3 %>
-        <%= f.label "星4" %>
-        <%= f.radio_button :graded_evaluation, 4 %>
-        <%= f.label "星5" %>
-        <%= f.radio_button :graded_evaluation, 5 %>
-      </div>
+
+    <div class="form-group row" id="star">
+      <%= f.label :rate,'評価 ',class: "col-md-2 offset-md-2 col-form-label" %>
+      <%= f.hidden_field :rate, id: :review_star %>
+
+
+  <!-- 評価javascript -->
+      <script>
+      var elem = document.getElementById('star');
+      var opt = {
+        size: 10,
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'review[rate]',
+        half: true,
+      };
+      raty(elem,opt);
+
+      </script>
     </div>
+
 
     <div class="form-group row">
       <%= f.label "訪問日", class: "col-md-2 offset-md-2 col-form-label" %>

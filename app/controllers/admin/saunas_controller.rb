@@ -28,6 +28,14 @@ class Admin::SaunasController < ApplicationController
 
   def update
     @sauna = Sauna.find(params[:id])
+
+    if params[:sauna][:image_ids]
+      params[:sauna][:image_ids].each do |image_id|
+        image = @sauna.sauna_images.find(image_id)
+        image.purge
+      end
+    end
+
     if @sauna.update(sauna_params)
       flash[:notice] = "You have updated sauna successfully."
       redirect_to admin_sauna_path
@@ -40,7 +48,7 @@ class Admin::SaunasController < ApplicationController
   private
 
   def sauna_params
-    params.require(:sauna).permit(:sauna_image, :genre_id, :name, :postal_code, :address1, :address2, :address3, :introduction, :price, :business_hours, :is_active, :sales_state)
+    params.require(:sauna).permit( :genre_id, :name, :postal_code, :address1, :address2, :address3, :introduction, :price, :business_hours, :is_active, :sales_state, sauna_images: [] )
   end
 
 end

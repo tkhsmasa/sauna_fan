@@ -97,7 +97,24 @@
     <% end %>
 
     <%= review.visit_date %>
-    <%= review.graded_evaluation %>
+  <div>
+    <span id="star-rate-<%= review.id %>"></span>
+    <script>
+      var elem = document.getElementById('star-rate-<%= review.id %>');
+      var opt = {
+        size: 36,
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        half: true,
+        readOnly: true,
+        score: <%= review.rate %>
+      };
+      raty(elem,opt);
+    </script>
+   <%= review.visit_date.strftime('%Y/%m') %>
+  </div>
+
     <%= link_to  sauna_review_path(review.sauna,review) do %>
       <%= review.review_title %>
     <% end %>

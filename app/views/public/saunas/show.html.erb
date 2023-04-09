@@ -17,19 +17,15 @@
   </div>
 
   <% if @sauna.bookmark_by?(current_user) %>
-    <p>
       <%= link_to sauna_bookmarks_path(@sauna), method: :delete do %>
-        ♥<%= @sauna.bookmarks.count %> いいね
+        <button type="button" class="btn btn-sm btn-warning"> 保存済み</button>
       <% end %>
-    </p>
-    <% else %>
-    <p>
+  <% else %>
       <%= link_to sauna_bookmarks_path(@sauna), method: :post do %>
-        ♡<%= @sauna.bookmarks.count %> いいね
+        <button type="button" class="btn btn-sm btn-outline-warning"> 保存</button>
       <% end %>
-    </p>
   <% end %>
-
+  <%= @sauna.bookmarks.count %>
   <div>
     口コミ<%= link_to "レビュー投稿", new_sauna_review_path(@sauna), class: "btn btn-sm btn-success"  %>
     <p>レビュー件数：<%= @reviews.count %></p>
@@ -49,8 +45,20 @@
           <%= review.review_detail %>
   　    </p>
         <div>
-
-         <%= review.graded_evaluation %>
+          <span id="star-rate-<%= review.id %>"></span>
+          <script>
+            var elem = document.getElementById('star-rate-<%= review.id %>');
+            var opt = {
+              size: 36,
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+              score: <%= review.rate %>
+            };
+            raty(elem,opt);
+          </script>
          <%= review.visit_date.strftime('%Y/%m') %>
         </div>
       </div>
