@@ -10,43 +10,84 @@
     <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md">
-      <table class="table">
-        <thead>
-          <th scope="col", style="width:10%">サウナid</th>
-          <th scope="col", style="width:25%">サウナ名</th>
-          <th scope="col", style="width:25%">ジャンル</th>
-          <th scope="col", style="width:15%"></th>
-        </thead>
-          <% @saunas.each do |sauna| %>
 
-        <tbody>
-          <td scope="row">
-            <%= sauna.id %>
-          </td>
-          <td scope="row">
-            <%= link_to sauna_path(sauna.id) do %>
-              <%= sauna.name %>
-            <% end %>
-          </td>
-
-          <td scope="row">
-            <%= sauna.genre.name %>
-          </td>
-
-          <% if sauna.is_active == true %>
-            <th scope="row", class="text-muted">非公開</th>
+  <% @saunas.each do |sauna| %>
+  <div class="row my-3 border-top">
+    <div class = "col-md-4">
+      <div class = "row">
+        <div class = "col-md-12 d-flex justify-content-center">
+          <% if sauna.sauna_images.attached? %>
+            <%= image_tag sauna.sauna_images[0], size: '300x250' ,class: "mx-5 my-3"  %>
           <% else %>
-            <th scope="row", class="text-success">公開</th>
+            <%= image_tag asset_path("no_image.jpg"), size: '300x250' ,class: "mx-5 my-3"  %>
           <% end %>
-        </tbody>
-          <% end %>
+        </div>
+      </div>
+    </div>
 
-      </table>
+    <div class ="col-md-8">
+      <div class = "row mt-4">
+        <div class ="col-md-10">
+          <div class ="row">
+            <%= link_to sauna_path(sauna) do %>
+              <h3><strong><%= sauna.name %></strong></h3>
+            <% end %>
+
+            <div class ="col-12"></div>
+            <div class ="col-md-12">
+              <p class ="my-0"><%= sauna.address_display %></p>
+            </div>
+            <div class ="col-md-auto">
+              <div id="<%= "average-review-rating" + sauna.id.to_s %>"></div>
+              <script>
+                var elem = document.getElementById("<%= "average-review-rating" + sauna.id.to_s %>");
+                var opt = {
+                  starOn: "<%= asset_path('star-on.png') %>",
+                  starOff: "<%= asset_path('star-off.png') %>",
+                  starHalf: "<%= asset_path('star-half.png') %>",
+                  half: true,
+                  readOnly: true,
+                  score: <%= sauna.reviews.average(:rate) || 0 %>
+                };
+                raty(elem,opt);
+              </script>
+            </div>
+            <div class ="col-md-auto">
+              <%= sauna.reviews.average(:rate) %>
+            </div>
+            <div class ="col-md-auto">
+              <%= sauna.reviews.count %>件
+            </div>
+            <div class ="col-md-auto">
+              <%= sauna.bookmarks.count %>件
+            </div>
+            <div class ="col-12"></div>
+            <div class ="col-md-12">
+              <%= sauna.genre.name %>
+            </div>
+          </div>
+        </div>
+        <div class ="col-md-2">
+          <div class = "row d-flex justify-content-center">
+            <div class ="col-auto">
+              <% if sauna.bookmark_by?(current_user) %>
+                <%= link_to sauna_bookmarks_path(sauna), method: :delete do %>
+                  <button type="button" class="btn btn btn-warning">保存済み</button>
+                <% end %>
+              <% else %>
+                <%= link_to sauna_bookmarks_path(sauna), method: :post do %>
+                  <button type="button" class="btn btn btn-outline-warning"> 保存</button>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <% end %>
+
   <div class="d-flex justify-content-center">
-   <%#= paginate @saunas %>
+   <%= paginate @saunas %>
   </div>
 </div>

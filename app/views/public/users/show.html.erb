@@ -7,6 +7,7 @@
   <div class="row">
       <h4 class="m-3">マイページ</h4>
   </div>
+
   <div class="row">
     <div class="col-md">
       <div class="p-2">
@@ -15,114 +16,181 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class = "col-md-3">
+      <table class="table table-bordered", style="width:100%" >
+        <tbody>
+          <tr>
+            <th scope="row", style="width:50%">
+              氏名
+            </th>
+            <td scope="row", style="width:50%">
+              <%= @user.last_name %><%= @user.first_name %>
+            </td>
+          </tr>
 
-  <table class="table table-bordered", style="width:50%" >
-    <tbody>
-      <tr>
-        <th scope="row", style="width:30%">
-          氏名
-        </th>
-        <td>
-          <%= @user.last_name %><%= @user.first_name %>
-        </td>
-      </tr>
+          <tr>
+            <th  scope="row">
+              フリガナ
+            </th>
+            <td>
+              <%= @user.last_name_kana %><%= @user.first_name_kana %>
+            </td>
+          </tr>
 
-      <tr>
-        <th  scope="row">
-          フリガナ
-        </th>
-        <td>
-          <%= @user.last_name_kana %><%= @user.first_name_kana %>
-        </td>
-      </tr>
+          <tr>
+            <th scope="row">
+              郵便番号
+            </th>
+            <td>
+              〒<%= @user.postal_code %>
+            </td>
+          </tr>
 
-      <tr>
-        <th scope="row">
-          郵便番号
-        </th>
-        <td>
-          〒<%= @user.postal_code %>
-        </td>
-      </tr>
+          <tr>
+            <th scope="row">
+              住所
+            </th>
+            <td>
+              <%= @user.address%>
+            </td>
+          </tr>
 
-      <tr>
-        <th scope="row">
-          住所
-        </th>
-        <td>
-          <%= @user.address%>
-        </td>
-      </tr>
+          <tr>
+            <th scope="row">
+              電話番号
+            </th>
+            <td>
+              <%= @user.telephone_number %>
+            </td>
+          </tr>
 
-      <tr>
-        <th scope="row">
-          電話番号
-        </th>
-        <td>
-          <%= @user.telephone_number %>
-        </td>
-      </tr>
+          <tr>
+            <th scope="row">
+              メールアドレス
+            </th>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
 
-      <tr>
-        <th scope="row">
-          メールアドレス
-        </th>
-        <td>
-          <%= @user.email %>
-        </td>
-      </tr>
+        </tbody>
+      </table>
+    </div>
 
-    </tbody>
-  </table>
-
-
-自身のブックマーク
-
-<div class="container">
-  <% @bookmarks.each do |bookmark| %>
-    <%= link_to  sauna_path(bookmark.sauna) do %>
-      <h4 class="m-3"><%= bookmark.sauna.name %></h4>
-    <% end %>
-
-  <% end %>
-</div>
+    <div class = "col-md-9">
+      <div class="row mb-3">
+        <h4>自身のブックマーク</h4>
+        <div class = "col-md-12">
+          <% @bookmarks.each do |bookmark| %>
+            <div class = "row  border-bottom mb-2">
+              <div class ="col-md-10">
+                <div class ="row">
+                  <%= link_to sauna_path(bookmark.sauna) do %>
+                    <h4 class="m-3"><strong><%= bookmark.sauna.name %></strong></h4>
+                  <% end %>
 
 
-自身のレビュー
+                  <div class ="col-12"></div>
+                  <div class ="col-md-12">
+                    <p class ="my-0"><%= bookmark.sauna.address_display %></p>
+                  </div>
+                  <div class ="col-md-auto">
+                    <div id="<%= "average-review-rating" + bookmark.sauna.id.to_s %>", class ="col">
+                      <script>
+                        var elem = document.getElementById("<%= "average-review-rating" + bookmark.sauna.id.to_s %>");
+                        var opt = {
+                          starOn: "<%= asset_path('star-on.png') %>",
+                          starOff: "<%= asset_path('star-off.png') %>",
+                          starHalf: "<%= asset_path('star-half.png') %>",
+                          half: true,
+                          readOnly: true,
+                          score: <%= bookmark.sauna.reviews.average(:rate) || 0 %>
+                        };
+                        raty(elem,opt);
+                      </script>
+                    <%= bookmark.sauna.reviews.average(:rate) %>
+                    </div>
+                  </div>
+                  <div class ="col-md-auto">
+                    <%= bookmark.sauna.reviews.count %>件
+                  </div>
+                  <div class ="col-md-auto">
+                    <%= bookmark.sauna.bookmarks.count %>件
+                  </div>
+                  <div class ="col-12"></div>
+                  <div class ="col-md-12">
+                    <%= bookmark.sauna.genre.name %>
+                  </div>
+                </div>
+              </div>
+              <div class ="col-md-2 d-flex align-items-center">
+                <div class = "row d-flex justify-content-center">
+                  <div class ="col-auto">
+                    <% if bookmark.sauna.bookmark_by?(current_user) %>
+                      <%= link_to sauna_bookmarks_path(bookmark.sauna), method: :delete do %>
+                        <button type="button" class="btn btn btn-warning">保存済み</button>
+                      <% end %>
+                    <% else %>
+                      <%= link_to sauna_bookmarks_path(bookmark.sauna), method: :post do %>
+                        <button type="button" class="btn btn btn-outline-warning"> 保存</button>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<div class="container">
-  <% @reviews.each do |review| %>
-    <%= link_to  sauna_path(review.sauna) do %>
-      <h4 class="m-3"><%= review.sauna.name %></h4>
-    <% end %>
 
-    <%= review.visit_date %>
-  <div>
-    <span id="star-rate-<%= review.id %>"></span>
-    <script>
-      var elem = document.getElementById('star-rate-<%= review.id %>');
-      var opt = {
-        size: 36,
-        starOn: "<%= asset_path('star-on.png') %>",
-        starOff: "<%= asset_path('star-off.png') %>",
-        starHalf: "<%= asset_path('star-half.png') %>",
-        half: true,
-        readOnly: true,
-        score: <%= review.rate %>
-      };
-      raty(elem,opt);
-    </script>
-   <%= review.visit_date.strftime('%Y/%m') %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <h4>自身のレビュー</h4>
+        <div class = "col-md-12">
+        <% @reviews.each do |review| %>
+          <div class = "row  border-bottom mb-2">
+            <%= link_to  sauna_path(review.sauna) do %>
+              <h4 class="m-3"><%= review.sauna.name %></h4>
+            <% end %>
+            <div class ="col-12"></div>
+            <div  class ="col-md-12">
+              <%= review.visit_date.strftime('%Y/%m') %>に訪問
+            </div>
+            <div class ="col-md-12">
+              <span id="star-rate-<%= review.id %>"></span>
+              <script>
+                var elem = document.getElementById('star-rate-<%= review.id %>');
+                var opt = {
+                  size: 36,
+                  starOn: "<%= asset_path('star-on.png') %>",
+                  starOff: "<%= asset_path('star-off.png') %>",
+                  starHalf: "<%= asset_path('star-half.png') %>",
+                  half: true,
+                  readOnly: true,
+                  score: <%= review.rate %>
+                };
+                raty(elem,opt);
+              </script>
+              <%= review.rate %>
+            </div>
+            <div class ="col-md-12">
+              <%= link_to  sauna_review_path(review.sauna,review) do %>
+                <%= review.review_title %>
+              <% end %>
+            </div>
+
+
+
+          <%#= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
+          <%#= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-    <%= link_to  sauna_review_path(review.sauna,review) do %>
-      <%= review.review_title %>
-    <% end %>
-    <%= review.review_detail %>
-
-  <% end %>
-
-  <%#= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
-  <%#= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
 </div>
+
+
+
 

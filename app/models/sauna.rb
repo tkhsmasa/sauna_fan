@@ -9,6 +9,10 @@ class Sauna < ApplicationRecord
   validates :price, presence: true
   validates :is_active, inclusion: {in: [true, false]}
   validates :sales_state, inclusion: {in: [true, false]}
+   #raty平均点
+  # validates :rate, numericality: {
+  #   less_than_or_equal_to: 5,
+  #   greater_than_or_equal_to: 0.5}, presence: true
 
   #公開状況（公開）
   scope :is_active, -> { where(is_active: false) }
@@ -31,15 +35,14 @@ class Sauna < ApplicationRecord
 
 
   # デフォルト画像
-  def get_sauna_images(width, height)
+  def get_sauna_images
     unless sauna_images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      sauna_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      #byebug
+      sauna_images.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpg')
     end
-    sauna_images.variant(resize_to_limit: [width, height]).processed
-      # sauna_images.each do |image|
-      #   image.variant(resize_to_limit: [width, height]).processed
-      # end
+    sauna_images[0]
+
   end
 
   # 税込価格
@@ -52,10 +55,21 @@ class Sauna < ApplicationRecord
     '〒' + postal_code + ' ' + address1+ ' ' + address2+ ' ' + address3
   end
 
+  def full_address
+    address1 + address2 + address3
+  end
+
+  geocoded_by :full_address
+  after_validation :geocode, if: :address1_changed? or :address2_changed? or :address3_changed?
+
+
   def bookmark_by?(user)
     bookmarks.exists?(user_id: user.id)
   end
 
+  def created_at_ymd
+    created_at.strftime('%Y/%m/%d')
+  end
 
 
 end

@@ -4,18 +4,76 @@
   </p>
 <% end %>
 
-
-
-<div class>
-  <div class>
-    <h4 class="p-3">検索</h4>
-    <div>
-      <%= render 'public/search', search_params: @search_params%>
-    </div>
+<div class="jumbotron p-5 p-md-7" style="background: url(<%= asset_path('sauna_top.jpg') %>); background-size:cover; background-position: center;">
+  <div class="col-md-6 px-0">
+    <h1 class="display-4 text-white">サウナライフを楽しもう</h1>
+    <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
+    <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
   </div>
-  <div class="row">
-    <div class="col-md-5">
-    </div>
-  </div>
-
 </div>
+
+
+
+
+<div>
+  <%= render 'public/search', search_params: @search_params%>
+</div>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <% @saunas_new.each do |sauna| %>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <% if sauna.sauna_images.attached? %>
+              <%= image_tag sauna.sauna_images[0], class: "card-img-top", size: '300x250'  %>
+            <% else %>
+              <%= image_tag asset_path("no_image.jpg"), class: "card-img-top", size: '300x250'  %>
+            <% end %>
+            <div class="card-body">
+              <%= link_to sauna_path(sauna) do %>
+              <p class="card-title"><%= sauna.name %></p>
+              <% end %>
+              <div class ="card-text">
+                <div id="<%= "average-review-rating" + sauna.id.to_s %>", class ="col">
+                  <script>
+                    var elem = document.getElementById("<%= "average-review-rating" + sauna.id.to_s %>");
+                    var opt = {
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      starHalf: "<%= asset_path('star-half.png') %>",
+                      half: true,
+                      readOnly: true,
+                      score: <%= sauna.reviews.average(:rate) || 0 %>
+                    };
+                    raty(elem,opt);
+                  </script>
+                <%= sauna.reviews.average(:rate) %>
+                </div>
+              </div>
+              <%= sauna.reviews.count %>件
+              <%= sauna.bookmarks.count %>件
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <% if sauna.bookmark_by?(current_user) %>
+                    <%= link_to sauna_bookmarks_path(sauna), method: :delete do %>
+                      <button type="button" class="btn btn-sm btn-warning">保存済み</button>
+                    <% end %>
+                  <% else %>
+                    <%= link_to sauna_bookmarks_path(sauna), method: :post do %>
+                      <button type="button" class="btn btn-sm btn-outline-warning"> 保存</button>
+                    <% end %>
+                  <% end %>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted"><%= sauna.created_at_ymd %></small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>

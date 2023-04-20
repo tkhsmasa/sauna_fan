@@ -97,6 +97,8 @@ ActiveRecord::Schema.define(version: 2023_03_26_035429) do
     t.string "address1", null: false
     t.string "address2", null: false
     t.string "address3", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.text "introduction"
     t.integer "price", null: false
     t.string "business_hours"

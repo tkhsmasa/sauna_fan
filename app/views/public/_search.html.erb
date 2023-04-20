@@ -1,10 +1,12 @@
-<div class="search_form">
+<div class ="row justify-content-center">
   <%= form_with(scope: :search, url: saunas_path, method: :get, local: true) do |f| %>
-
-    <%= f.text_field :name, placeholder: '施設名', value: search_params[:name] %>
-    <%= f.text_field :address, placeholder: '住所', value: search_params[:address] %>
-    <%= f.text_field :genre, placeholder: 'ジャンル', value: search_params[:genre] %>
-
-    <%= submit_tag '検索', class: "button" %>
+  <div class ="col-md-auto py-3 px-5  rounded bg-secondary">
+    <div class="input-group">
+      <%= f.text_field :name, placeholder: '施設名', value: search_params[:name], class: "form-control" %>
+      <%= f.text_field :address, placeholder: '住所', value: search_params[:address], class: "form-control" %>
+      <%= f.text_field :genre, placeholder: 'ジャンル', value: search_params[:genre], class: "form-control" %>
+      <%= submit_tag '検索', class: "btn btn-outline-secondary input-group-append" %>
+    </div>
+  </div>
   <% end %>
 </div>

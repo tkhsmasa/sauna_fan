@@ -60,3 +60,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 #ページネーション
 gem 'kaminari','~> 1.2.1'
+
+#住所（緯度、軽度）
+gem 'geocoder'

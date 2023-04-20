@@ -1,135 +1,247 @@
+<script type="text/javascript">
+  function initMap() {
+#latitude,longitudeから位置を特定
+    var test ={lat: <%= @sauna.latitude %>, lng: <%= @sauna.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所：<%= @sauna.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+ #Map上の指定した位置にピンを挿して表示する
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+  }
+</script>
+
+#以下の記述の中にあるYOUR_API_KEYには取得したご自身のAPIキーを記述してください
+<script async defer
+              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAlCVcoXucCkH1zhn3rR5JnUe1mn-I8yOc&callback=initMap">
+</script>
+#表示するmapのcssです。ご自身でカスタマイズしてください。高さが設定されていないと表示されないことがあります。
+<style type="text/css">
+  #map { height: 200px;
+         width: 70%;}
+</style>
+
+#mapの表示
+<div id="map"></div>
+
+
 
 <div class="container">
-  <div class="py-6 row justify-content-center">
-    <div class="col-md-12 align-self-center">
-      <%= image_tag @sauna.get_item_image %>
-    </div>
-  </div>
-
-
-
-  <div>
-    <h4><strong><%= @sauna.name %> </strong></h4>
-  </div>
-
-  <div>
-    <p><%= @sauna.introduction %></p>
-  </div>
-
-  <% if @sauna.bookmark_by?(current_user) %>
-      <%= link_to sauna_bookmarks_path(@sauna), method: :delete do %>
-        <button type="button" class="btn btn-sm btn-warning"> 保存済み</button>
-      <% end %>
-  <% else %>
-      <%= link_to sauna_bookmarks_path(@sauna), method: :post do %>
-        <button type="button" class="btn btn-sm btn-outline-warning"> 保存</button>
-      <% end %>
-  <% end %>
-  <%= @sauna.bookmarks.count %>
-  <div>
-    口コミ<%= link_to "レビュー投稿", new_sauna_review_path(@sauna), class: "btn btn-sm btn-success"  %>
-    <p>レビュー件数：<%= @reviews.count %></p>
-  </div>
-
-  <% @reviews.each do |review| %>
-  <div class ="pb-3">
-    <%= review.user.full_name %>
-    <div class="card">
-      <div class="card-header">
-        <%= link_to  sauna_review_path(@sauna,review) do %>
-          <%= review.review_title %>
-        <% end %>
-      </div>
-      <div class="card-body">
-  　    <p class="card-text">
-          <%= review.review_detail %>
-  　    </p>
-        <div>
-          <span id="star-rate-<%= review.id %>"></span>
+  <div class="row my-3">
+    <div class ="col-8">
+      <div class = "row">
+        <h3><strong><%= @sauna.name %></strong></h3>
+        <div class ="col-12"></div>
+        <div class ="col-md-12">
+          <p class ="my-0"><%= @sauna.address1 %><%= @sauna.address2 %></p>
+        </div>
+        <div class ="col-md-auto">
+          <div id="average-review-rating"></div>
           <script>
-            var elem = document.getElementById('star-rate-<%= review.id %>');
+            var elem = document.getElementById('average-review-rating');
             var opt = {
-              size: 36,
               starOn: "<%= asset_path('star-on.png') %>",
               starOff: "<%= asset_path('star-off.png') %>",
               starHalf: "<%= asset_path('star-half.png') %>",
               half: true,
               readOnly: true,
-              score: <%= review.rate %>
+              score: <%= @sauna.reviews.average(:rate) %>
             };
             raty(elem,opt);
           </script>
-         <%= review.visit_date.strftime('%Y/%m') %>
+        </div>
+        <div class ="col-md-auto">
+          <%= @sauna.reviews.average(:rate) %>
+        </div>
+        <div class ="col-md-auto">
+          <%= @reviews.count %>件
+        </div>
+        <div class ="col-md-auto">
+          <%= @bookmarks.count %>件
+        </div>
+      </div>
+    </div>
+    <div class ="col-4 d-flex align-items-center justify-content-center">
+      <div class = "row d-flex justify-content-center">
+        <div class ="col-auto">
+          <% if @sauna.bookmark_by?(current_user) %>
+            <%= link_to sauna_bookmarks_path(@sauna), method: :delete do %>
+              <button type="button" class="btn btn btn-warning">保存済み</button>
+            <% end %>
+          <% else %>
+            <%= link_to sauna_bookmarks_path(@sauna), method: :post do %>
+              <button type="button" class="btn btn btn-outline-warning"> 保存</button>
+            <% end %>
+          <% end %>
+          <%= link_to "さ活を登録", new_sauna_review_path(@sauna), class: "btn btn btn-success"  %>
         </div>
       </div>
     </div>
   </div>
-  <% end %>
 
 
-  <div>
-    施設情報
-    <table class="table" >
-      <tbody>
-        <tr>
-          <th class="table-info">
-            施設名
-          </th>
-          <td>
-            <%= @sauna.name %>
-          </td>
-        </tr>
 
-        <tr>
-          <th class="table-info">
-            住所
-          </th>
-          <td>
-            <%= @sauna.address_display %>
-          </td>
-        </tr>
-
-        <tr>
-          <th class="table-info">
-            詳細
-          </th>
-          <td>
-            <%= @sauna.introduction %>
-          </td>
-        </tr>
-
-        <tr>
-          <th class="table-info">
-            入湯料(税込)
-          </th>
-          <td>
-            <%= @sauna.add_tax_price %>
-          </td>
-        </tr>
-
-        <tr>
-          <th class="table-info">
-            営業時間
-          </th>
-          <td>
-            <%= @sauna.business_hours %>
-          </td>
-        </tr>
-
-        <tr>
-          <th class="table-info">
-
-          </th>
-          <% if @sauna.sales_state == true %>
-            <td class="text-muted">閉業</td>
+  <div class="row mb-3">
+    <div class = "col-md-6">
+      <div class = "row">
+        <div class = "col-md-12 d-flex justify-content-center">
+          <% if @sauna.sauna_images.attached? %>
+            <%= image_tag @sauna.sauna_images[0], size: '300x250' ,class: "mx-5 my-3"  %>
           <% else %>
-            <td class="text-success">営業中</td>
+            <%= image_tag asset_path("no_image.jpg"), size: '300x250' ,class: "mx-5 my-3"  %>
           <% end %>
-        </tr>
-      </tbody>
-    </table>
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-md-12 d-flex justify-content-center">
+          <% if @sauna.sauna_images.attached? %>
+            <% @sauna.sauna_images.each do |image| %>
+              <%= image_tag image, size: '100x80' ,class: "mx-1 my-2" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class = "col-md-6">
+      <table class="table my-3" >
+        <tbody>
+          <tr>
+            <th>
+              施設名
+            </th>
+            <td>
+              <%= @sauna.name %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              住所
+            </th>
+            <td>
+              <%= @sauna.address_display %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              入湯料(税込)
+            </th>
+            <td>
+              <%= @sauna.add_tax_price %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              営業時間
+            </th>
+            <td>
+              <%= @sauna.business_hours %>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+
+            </th>
+            <% if @sauna.sales_state == true %>
+              <td class="text-muted">閉業</td>
+            <% else %>
+              <td class="text-success">営業中</td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 
+  <div class ="mt-3">
+
+  </div>
+
+  <div class = "row mb-3">
+    <div class ="col-md-12">
+      <div class = "row">
+        <h5 class = "border-bottom border-5">
+          施設情報
+        </h5>
+        <p class = "col-md-12">
+          <%= @sauna.introduction %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <div class="row mb-1">
+        <div class="col-auto mr-auto pl-0">
+          <h5 class ="border-bottom border-5">みんなのサ活(全<%= @reviews.count %>件)</h5>
+        </div>
+        <div class="col-auto">
+          <%= link_to "さ活を登録", new_sauna_review_path(@sauna), class: "col-auto btn btn-sm btn-success"  %>
+        </div>
+      </div>
+    </div>
+
+
+    <% @reviews.each do |review| %>
+      <div class="col-md-12">
+        <div class ="row mb-3">
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h6 class="mb-0"><%= review.user.full_name %></h6>
+          </div>
+          <div class="card-body">
+            <%= review.visit_date.strftime('%Y/%m') %>訪問
+            <h5>
+              <%= link_to  sauna_review_path(@sauna,review) do %>
+                <%= review.review_title %>
+              <% end %>
+            </h5>
+      　     <p class="card-text">
+              <%= review.review_detail %>
+      　    </p>
+            <div>
+              <span id="star-rate-<%= review.id %>"></span>
+              <script>
+                var elem = document.getElementById('star-rate-<%= review.id %>');
+                var opt = {
+                  size: 36,
+                  starOn: "<%= asset_path('star-on.png') %>",
+                  starOff: "<%= asset_path('star-off.png') %>",
+                  starHalf: "<%= asset_path('star-half.png') %>",
+                  half: true,
+                  readOnly: true,
+                  score: <%= review.rate %>
+                };
+                raty(elem,opt);
+              </script>
+              <%= review.rate %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
 </div>
