@@ -63,3 +63,5 @@ gem 'kaminari','~> 1.2.1'
 
 #住所（緯度、軽度）
 gem 'geocoder'
+
+gem "dotenv-rails"

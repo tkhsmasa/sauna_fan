@@ -5,11 +5,11 @@
 <% end %>
 <div class="container">
   <div class="row">
-      <h4 class="m-3">マイページ</h4>
+      <h4 class="m-3"><%= @user.full_name %>のマイページ</h4>
   </div>
 
   <div class="row">
-    <div class="col-md">
+    <div class="col-md-12">
       <div class="p-2">
         <label class="pr-2">登録情報</label><%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-success"  %>
       </div>
@@ -17,76 +17,29 @@
   </div>
 
   <div class="row">
-    <div class = "col-md-3">
-      <table class="table table-bordered", style="width:100%" >
-        <tbody>
-          <tr>
-            <th scope="row", style="width:50%">
-              氏名
-            </th>
-            <td scope="row", style="width:50%">
-              <%= @user.last_name %><%= @user.first_name %>
-            </td>
-          </tr>
+    <div class = "col-md-4">
 
-          <tr>
-            <th  scope="row">
-              フリガナ
-            </th>
-            <td>
-              <%= @user.last_name_kana %><%= @user.first_name_kana %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              郵便番号
-            </th>
-            <td>
-              〒<%= @user.postal_code %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              住所
-            </th>
-            <td>
-              <%= @user.address%>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              電話番号
-            </th>
-            <td>
-              <%= @user.telephone_number %>
-            </td>
-          </tr>
-
-          <tr>
-            <th scope="row">
-              メールアドレス
-            </th>
-            <td>
-              <%= @user.email %>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
+      <div class="card mb-3">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"><%= @user.full_name %></h5>
+          <p class="card-text mb-0">保存数：<%= @user.bookmarks.count %> </p>
+          <p class="card-text mb-0">レビュー数：<%= @user.reviews.count %> </p>
+          <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+        </div>
+      </div>
+      <%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-success"  %>
     </div>
 
-    <div class = "col-md-9">
-      <div class="row mb-3">
-        <h4>自身のブックマーク</h4>
+    <div class = "col-md-8">
+      <div class="row mb-5">
+        <h4 class="border-bottom">ブックマーク</h4>
         <div class = "col-md-12">
           <% @bookmarks.each do |bookmark| %>
-            <div class = "row  border-bottom mb-2">
-              <div class ="col-md-10">
+            <div class = "row  border-bottom mb-2 px-1 pb-3">
+              <div class ="col-md-9">
                 <div class ="row">
-                  <%= link_to sauna_path(bookmark.sauna) do %>
+                  <%= link_to sauna_path(bookmark.sauna_id) do %>
                     <h4 class="m-3"><strong><%= bookmark.sauna.name %></strong></h4>
                   <% end %>
 
@@ -124,7 +77,7 @@
                   </div>
                 </div>
               </div>
-              <div class ="col-md-2 d-flex align-items-center">
+              <div class ="col-md-3 d-flex align-items-center">
                 <div class = "row d-flex justify-content-center">
                   <div class ="col-auto">
                     <% if bookmark.sauna.bookmark_by?(current_user) %>
@@ -140,23 +93,27 @@
                 </div>
               </div>
             </div>
-
-
           <% end %>
         </div>
       </div>
       <div class="row">
-        <h4>自身のレビュー</h4>
+        <h4 class="border-bottom">レビュー</h4>
         <div class = "col-md-12">
         <% @reviews.each do |review| %>
-          <div class = "row  border-bottom mb-2">
+          <div class = "row  border-bottom mb-2 px-1 pb-3">
             <%= link_to  sauna_path(review.sauna) do %>
               <h4 class="m-3"><%= review.sauna.name %></h4>
             <% end %>
             <div class ="col-12"></div>
-            <div  class ="col-md-12">
+            <div  class ="col-md-12 mb-2">
               <%= review.visit_date.strftime('%Y/%m') %>に訪問
             </div>
+            <div class ="col-md-12">
+              <%= link_to  sauna_review_path(review.sauna,review) do %>
+                <p class="mb-0 h4"><%= review.review_title %></p>
+              <% end %>
+            </div>
+
             <div class ="col-md-12">
               <span id="star-rate-<%= review.id %>"></span>
               <script>
@@ -173,11 +130,6 @@
                 raty(elem,opt);
               </script>
               <%= review.rate %>
-            </div>
-            <div class ="col-md-12">
-              <%= link_to  sauna_review_path(review.sauna,review) do %>
-                <%= review.review_title %>
-              <% end %>
             </div>
 
 

@@ -56,11 +56,11 @@ class Sauna < ApplicationRecord
   end
 
   def full_address
-    address1 + address2 + address3
+    "%s %s %s"%([self.address1,self.address2,self.address3])
   end
 
   geocoded_by :full_address
-  after_validation :geocode, if: :address1_changed? or :address2_changed? or :address3_changed?
+  after_validation :geocode, if: :address1_changed? || :address2_changed? || :address3_changed?
 
 
   def bookmark_by?(user)

@@ -1,44 +1,4 @@
-<script type="text/javascript">
-  function initMap() {
-#latitude,longitudeから位置を特定
-    var test ={lat: <%= @sauna.latitude %>, lng: <%= @sauna.longitude %>};
-    var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 15,
-              center: test
-              });
-    var transitLayer = new google.maps.TransitLayer();
-    transitLayer.setMap(map);
 
-    var contentString = '住所：<%= @sauna.address %>';
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-
- #Map上の指定した位置にピンを挿して表示する
-    var marker = new google.maps.Marker({
-                  position:test,
-                  map: map,
-                  title: contentString
-                 });
-
-     marker.addListener('click', function() {
-       infowindow.open(map, marker);
-     });
-  }
-</script>
-
-#以下の記述の中にあるYOUR_API_KEYには取得したご自身のAPIキーを記述してください
-<script async defer
-              src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAlCVcoXucCkH1zhn3rR5JnUe1mn-I8yOc&callback=initMap">
-</script>
-#表示するmapのcssです。ご自身でカスタマイズしてください。高さが設定されていないと表示されないことがあります。
-<style type="text/css">
-  #map { height: 200px;
-         width: 70%;}
-</style>
-
-#mapの表示
-<div id="map"></div>
 
 
 
@@ -61,7 +21,7 @@
               starHalf: "<%= asset_path('star-half.png') %>",
               half: true,
               readOnly: true,
-              score: <%= @sauna.reviews.average(:rate) %>
+              score: <%= @sauna.reviews.average(:rate) || 0 %>
             };
             raty(elem,opt);
           </script>
@@ -121,30 +81,12 @@
     <div class = "col-md-6">
       <table class="table my-3" >
         <tbody>
-          <tr>
+          <tr class=>
             <th>
               施設名
             </th>
             <td>
               <%= @sauna.name %>
-            </td>
-          </tr>
-
-          <tr>
-            <th>
-              住所
-            </th>
-            <td>
-              <%= @sauna.address_display %>
-            </td>
-          </tr>
-
-          <tr>
-            <th>
-              入湯料(税込)
-            </th>
-            <td>
-              <%= @sauna.add_tax_price %>
             </td>
           </tr>
 
@@ -159,6 +101,16 @@
 
           <tr>
             <th>
+              入湯料
+            </th>
+            <td>
+              <%= @sauna.add_tax_price %>(税込)
+            </td>
+          </tr>
+
+
+          <tr>
+            <th>
 
             </th>
             <% if @sauna.sales_state == true %>
@@ -167,6 +119,61 @@
               <td class="text-success">営業中</td>
             <% end %>
           </tr>
+
+
+          <tr>
+            <th>
+              住所
+            </th>
+            <td>
+              <%= @sauna.address_display %>
+                <script type="text/javascript">
+                function initMap() {
+              // latitude,longitudeから位置を特定
+                  var test ={lat: <%= @sauna.latitude %>, lng: <%= @sauna.longitude %>};
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 15,
+                            center: test
+                            });
+                  var transitLayer = new google.maps.TransitLayer();
+                  transitLayer.setMap(map);
+
+                  var contentString = '住所：<%= @sauna.full_address %>';
+                  var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                  });
+
+              // Map上の指定した位置にピンを挿して表示する
+                  var marker = new google.maps.Marker({
+                                position:test,
+                                map: map,
+                                title: contentString
+                               });
+
+                   marker.addListener('click', function() {
+                     infowindow.open(map, marker);
+                   });
+                }
+              </script>
+
+
+              <!--以下の記述の中にあるYOUR_API_KEYには取得したご自身のAPIキーを記述してください-->
+              <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+              </script>
+
+              <!--表示するmapのcssです。ご自身でカスタマイズしてください。高さが設定されていないと表示されないことがあります。-->
+              <style type="text/css">
+                #map { height: 200px;
+                       width: 100%;}
+              </style>
+
+              <!--mapの表示-->
+              <div id="map"></div>
+
+            </td>
+          </tr>
+
         </tbody>
       </table>
     </div>
@@ -210,7 +217,8 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <h6 class="mb-0"><%= review.user.full_name %></h6>
+            <h6 class="mb-0 col-auto"><%= review.user.full_name %></h6>
+            <p class="mb-0 col-auto"><small class="text-muted"><%= review.visit_date.strftime('%Y/%m') %>訪問</small></p>
           </div>
           <div class="card-body">
             <%= review.visit_date.strftime('%Y/%m') %>訪問
