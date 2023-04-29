@@ -60,11 +60,11 @@ class Sauna < ApplicationRecord
   end
 
   geocoded_by :full_address
-  after_validation :geocode, if: :address1_changed? || :address2_changed? || :address3_changed?
+  after_validation :geocode
 
 
   def bookmark_by?(user)
-    bookmarks.exists?(user_id: user.id)
+      bookmarks.exists?(user_id: user.id)
   end
 
   def created_at_ymd

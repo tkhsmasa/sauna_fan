@@ -25,6 +25,9 @@
           <h5 class="card-title"><%= @user.full_name %></h5>
           <p class="card-text mb-0">保存数：<%= @user.bookmarks.count %> </p>
           <p class="card-text mb-0">レビュー数：<%= @user.reviews.count %> </p>
+          <%= link_to edit_user_path(@user), class: "btn btn-sm btn-success" do %>
+            <i class="fas fa-user-cog"></i>
+          <% end %>
           <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
         </div>
       </div>

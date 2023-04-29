@@ -9,6 +9,11 @@ class Review < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
+  def created_at_ymd
+    created_at.strftime('%Y/%m/%d')
+  end
+
+
   validates :rate, numericality: {
   less_than_or_equal_to: 5,
   greater_than_or_equal_to: 1}, presence: true

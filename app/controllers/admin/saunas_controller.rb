@@ -20,6 +20,7 @@ class Admin::SaunasController < ApplicationController
   def show
     @sauna = Sauna.find(params[:id])
     @reviews = @sauna.reviews
+    @bookmarks = @sauna.bookmarks
   end
 
   def edit
