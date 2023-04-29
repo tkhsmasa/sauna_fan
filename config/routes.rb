@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
       resources :reviews, except: [:index] do
         resources :comments, except: [:index]
+        resource :favorites, only: [:create, :destroy]
       end
       resource :bookmarks, only: [:create, :destroy]
     end

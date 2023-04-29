@@ -7,13 +7,13 @@ class Public::BookmarksController < ApplicationController
     sauna = Sauna.find(params[:sauna_id])
     bookmark = current_user.bookmarks.new(sauna_id: sauna.id)
     bookmark.save
-    redirect_to sauna_path(sauna)
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     sauna = Sauna.find(params[:sauna_id])
     bookmark = current_user.bookmarks.find_by(sauna_id: sauna.id)
     bookmark.destroy
-    redirect_to sauna_path(sauna)
+    redirect_back(fallback_location: root_path)
   end
 end

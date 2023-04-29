@@ -156,12 +156,10 @@
                 }
               </script>
 
-
               <!--以下の記述の中にあるYOUR_API_KEYには取得したご自身のAPIキーを記述してください-->
               <script async defer
                             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
               </script>
-
               <!--表示するmapのcssです。ご自身でカスタマイズしてください。高さが設定されていないと表示されないことがあります。-->
               <style type="text/css">
                 #map { height: 200px;
@@ -217,19 +215,25 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <h6 class="mb-0 col-auto"><%= review.user.full_name %></h6>
-            <p class="mb-0 col-auto"><small class="text-muted"><%= review.visit_date.strftime('%Y/%m') %>訪問</small></p>
+            <div class="row">
+              <div class="col-auto d-flex align-items-center">
+                <%= image_tag review.user.get_user_image(40,40) %>
+              </div>
+              <div class="col d-flex align-items-center">
+                <h6 class="mb-0"><%= review.user.full_name %><small class="text-muted pl-2"><%= review.visit_date.strftime('%Y/%m') %>訪問</small></h6>
+
+              </div>
+            </div>
           </div>
           <div class="card-body">
-            <%= review.visit_date.strftime('%Y/%m') %>訪問
-            <h5>
+            <h5 class="card-title">
               <%= link_to  sauna_review_path(@sauna,review) do %>
                 <%= review.review_title %>
               <% end %>
             </h5>
       　     <p class="card-text">
               <%= review.review_detail %>
-      　    </p>
+       　    </p>
             <div>
               <span id="star-rate-<%= review.id %>"></span>
               <script>
@@ -247,6 +251,19 @@
               </script>
               <%= review.rate %>
             </div>
+              <% if review.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to sauna_review_favorites_path(@sauna,review), method: :delete do %>
+                    ♥<%= review.favorites.count %> いいね
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to sauna_review_favorites_path(@sauna,review), method: :post do %>
+                    ♡<%= review.favorites.count %> いいね
+                  <% end %>
+                </p>
+              <% end %>
           </div>
         </div>
       </div>

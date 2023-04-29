@@ -2,6 +2,12 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :sauna
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
 
   validates :rate, numericality: {
   less_than_or_equal_to: 5,

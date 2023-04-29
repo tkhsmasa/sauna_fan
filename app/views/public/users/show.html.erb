@@ -19,8 +19,8 @@
   <div class="row">
     <div class = "col-md-4">
 
-      <div class="card mb-3">
-        <img src="..." class="card-img-top" alt="...">
+      <div class="card m-4">
+        <%= image_tag @user.get_user_image(100,100), class: "card-img" %>
         <div class="card-body">
           <h5 class="card-title"><%= @user.full_name %></h5>
           <p class="card-text mb-0">保存数：<%= @user.bookmarks.count %> </p>

@@ -54,6 +54,11 @@
     </div>
   </div>
 
+  <div class="form-group row">
+    <%= f.label "画像", class: "col-md-3 offset-md-1 col-form-label" %>
+    <%= f.file_field :user_image %>
+  </div>
+
   <div class="form-group row ">
      <% if @minimum_password_length %>
       <%= f.label "パスワード(#{@minimum_password_length} 文字以上)", class: "col-md-3 offset-md-1 col-form-label" %>
