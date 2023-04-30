@@ -1,4 +1,5 @@
 class Public::CommentsController < ApplicationController
+  before_action :is_matching_login_user
   def new
     @review = Review.find(params[:review_id])
     @sauna = Sauna.find(params[:sauna_id])
@@ -49,5 +50,11 @@ class Public::CommentsController < ApplicationController
     params.require(:comment).permit(:user_id, :review_id, :comment_detail)
   end
 
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to root_path
+    end
+  end
 
 end

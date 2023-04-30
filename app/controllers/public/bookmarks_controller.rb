@@ -1,5 +1,5 @@
 class Public::BookmarksController < ApplicationController
-
+  before_action :is_matching_login_user
   def index
     @bookmarks = current_user.bookmarks.page(params[:page]).per(10)
   end
@@ -23,6 +23,16 @@ class Public::BookmarksController < ApplicationController
     else
       redirect_to new_user_session_path
     end
-
   end
+
+  private
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to root_path
+    end
+  end
+
+
 end

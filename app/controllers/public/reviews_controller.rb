@@ -1,4 +1,5 @@
 class Public::ReviewsController < ApplicationController
+  before_action :is_matching_login_user, only: [:new, :create, :edit, :update, :destroy]
   def new
     @review = Review.new
   end
@@ -45,4 +46,12 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:user_id, :sauna_id, :review_title, :review_detail, :rate, :visit_date)
   end
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to root_path
+    end
+  end
+
 end

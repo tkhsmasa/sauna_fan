@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-
+  before_action :is_matching_login_user, only: [:new, :create, :edit, :update, :unsubscribe, :withdraw]
   def show
     @user = User.find(params[:id])
     @bookmarks = @user.bookmarks.page(params[:page]).per(5)
@@ -46,4 +46,12 @@ class Public::UsersController < ApplicationController
   def user_deleted_params
     params.require(:user).permit(:is_deleted )
   end
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to root_path
+    end
+  end
+
 end
