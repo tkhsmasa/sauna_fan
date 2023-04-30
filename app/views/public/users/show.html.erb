@@ -4,34 +4,28 @@
   </p>
 <% end %>
 <div class="container">
-  <div class="row">
-      <h4 class="m-3"><%= @user.full_name %>のマイページ</h4>
+  <div class="row my-3">
+    <h3><strong><%= @user.full_name %>のマイページ</strong></h3>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="p-2">
-        <label class="pr-2">登録情報</label><%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-success"  %>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class = "col-md-4">
 
-      <div class="card m-4">
+      <div class="card  text-center" style="width: 100%;">
         <%= image_tag @user.get_user_image(100,100), class: "card-img" %>
         <div class="card-body">
-          <h5 class="card-title"><%= @user.full_name %></h5>
-          <p class="card-text mb-0">保存数：<%= @user.bookmarks.count %> </p>
-          <p class="card-text mb-0">レビュー数：<%= @user.reviews.count %> </p>
-          <%= link_to edit_user_path(@user), class: "btn btn-sm btn-success" do %>
-            <i class="fas fa-user-cog"></i>
-          <% end %>
+          <h5 class="card-title mx-auto"><%= @user.full_name %></h5>
+          <p class="card-text mb-0 mx-auto">保存数：<%= @user.bookmarks.count %> </p>
+          <p class="card-text mx-auto">レビュー数：<%= @user.reviews.count %> </p>
+          <div class="mx-2">
+            <%= link_to edit_user_path(@user), class: "btn btn-sm btn-secondary", style: "width: 70%;" do %>
+              <i class="fas fa-user-cog"></i>
+            <% end %>
+          </div>
           <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
         </div>
       </div>
-      <%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-success"  %>
     </div>
 
     <div class = "col-md-8">
@@ -48,9 +42,6 @@
 
 
                   <div class ="col-12"></div>
-                  <div class ="col-md-12">
-                    <p class ="my-0"><%= bookmark.sauna.address_display %></p>
-                  </div>
                   <div class ="col-md-auto">
                     <div id="<%= "average-review-rating" + bookmark.sauna.id.to_s %>", class ="col">
                       <script>
@@ -75,9 +66,6 @@
                     <%= bookmark.sauna.bookmarks.count %>件
                   </div>
                   <div class ="col-12"></div>
-                  <div class ="col-md-12">
-                    <%= bookmark.sauna.genre.name %>
-                  </div>
                 </div>
               </div>
               <div class ="col-md-3 d-flex align-items-center">
@@ -85,11 +73,11 @@
                   <div class ="col-auto">
                     <% if bookmark.sauna.bookmark_by?(current_user) %>
                       <%= link_to sauna_bookmarks_path(bookmark.sauna), method: :delete do %>
-                        <button type="button" class="btn btn btn-warning">保存済み</button>
+                        <i class="fas fa-bookmark fa-lg"></i>
                       <% end %>
                     <% else %>
                       <%= link_to sauna_bookmarks_path(bookmark.sauna), method: :post do %>
-                        <button type="button" class="btn btn btn-outline-warning"> 保存</button>
+                        <i class="far fa-bookmark fa-lg"></i>
                       <% end %>
                     <% end %>
                   </div>
@@ -97,26 +85,29 @@
               </div>
             </div>
           <% end %>
+          <%= paginate @bookmarks %>
         </div>
       </div>
       <div class="row">
         <h4 class="border-bottom">レビュー</h4>
-        <div class = "col-md-12">
         <% @reviews.each do |review| %>
-          <div class = "row  border-bottom mb-2 px-1 pb-3">
-            <%= link_to  sauna_path(review.sauna) do %>
-              <h4 class="m-3"><%= review.sauna.name %></h4>
+        <div class = "col-md-12">
+          <div class = "row border-bottom mb-2 px-1 pb-3">
+
+            <%= link_to  sauna_review_path(review.sauna,review) do %>
+              <h4 class = "my-2"><strong><%= review.review_title %></strong></h4>
             <% end %>
             <div class ="col-12"></div>
-            <div  class ="col-md-12 mb-2">
-              <%= review.visit_date.strftime('%Y/%m') %>に訪問
-            </div>
-            <div class ="col-md-12">
-              <%= link_to  sauna_review_path(review.sauna,review) do %>
-                <p class="mb-0 h4"><%= review.review_title %></p>
+            <div class = "col-md-8">
+              <%= link_to  sauna_path(review.sauna) do %>
+                <p class="mb-0"><%= review.sauna.name %></p>
               <% end %>
             </div>
-
+            <div  class ="col-md-4">
+              <p class="text-muted mb-0">
+                <small><%= review.visit_date.strftime('%Y/%m') %>に訪問</small>
+              </p>
+            </div>
             <div class ="col-md-12">
               <span id="star-rate-<%= review.id %>"></span>
               <script>
@@ -134,13 +125,10 @@
               </script>
               <%= review.rate %>
             </div>
-
-
-
-          <%#= link_to "編集する", edit_sauna_review_path(@review.sauna.id,@review), class: "btn btn-sm btn-success"  %>
-          <%#= link_to "削除する", sauna_review_path(@review), method: :delete, class: "btn btn-sm btn-danger"  %>
+          </div>
         </div>
         <% end %>
+        <%= paginate @reviews %>
       </div>
     </div>
   </div>

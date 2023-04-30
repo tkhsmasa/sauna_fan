@@ -16,8 +16,11 @@
         <thead>
           <th scope="col", style="width:10%">サウナid</th>
           <th scope="col", style="width:25%">サウナ名</th>
-          <th scope="col", style="width:25%">ジャンル</th>
-          <th scope="col", style="width:15%"></th>
+          <th scope="col", style="width:15%">ジャンル</th>
+          <th scope="col", style="width:10%">評価</th>
+          <th scope="col", style="width:10%">レビュー</th>
+          <th scope="col", style="width:10%">保存</th>
+          <th scope="col", style="width:10%"></th>
         </thead>
         <% @saunas.each do |sauna| %>
         <tbody>
@@ -29,15 +32,23 @@
               <%= sauna.name %>
             <% end %>
           </td>
-
           <td scope="row">
             <%= sauna.genre.name %>
           </td>
+          <td scope="row">
+            <%= sauna.reviews.average(:rate) %>
+          </td>
+          <td scope="row">
+            <%= sauna.reviews.count %>
+          </td>
+          <td scope="row">
+            <%= sauna.bookmarks.count %>
+          </td>
 
           <% if sauna.is_active == true %>
-            <th scope="row", class="text-success">非公開</th>
+            <th scope="row", class="text-muted">非公開</th>
           <% else %>
-            <th scope="row", class="text-muted">公開</th>
+            <th scope="row", class="text-success">公開</th>
           <% end %>
         </tbody>
         <% end %>

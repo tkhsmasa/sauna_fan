@@ -2,8 +2,8 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @bookmarks = @user.bookmarks
-    @reviews = @user.reviews
+    @bookmarks = @user.bookmarks.page(params[:page]).per(5)
+    @reviews = @user.reviews.page(params[:page]).per(5)
     # .page(params[:page]).per(10)
   end
 

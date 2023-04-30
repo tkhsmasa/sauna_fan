@@ -4,22 +4,17 @@
   </p>
 <% end %>
 
-<div class="jumbotron p-5 p-md-7" style="background: url(<%= asset_path('sauna_top.jpg') %>); background-size:cover; background-position: center;">
+<div class="jumbotron p-5 p-md-7 mb-0" style="background: url(<%= asset_path('sauna_top.jpg') %>); background-size:cover; background-position: center;">
   <div class="col-md-6 px-0">
     <h1 class="display-4 text-white">サウナライフを楽しもう</h1>
-    <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
-    <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
   </div>
 </div>
 
+<div class="album">
+  <div class="my-4">
+    <%= render 'public/search', search_params: @search_params%>
+  </div>
 
-
-
-<div>
-  <%= render 'public/search', search_params: @search_params%>
-</div>
-
-<div class="album py-5 bg-light">
     <div class="container">
       <div class="row">
         <% @saunas_new.each do |sauna| %>
@@ -28,11 +23,11 @@
             <% if sauna.sauna_images.attached? %>
               <%= image_tag sauna.sauna_images[0], class: "card-img-top", size: '300x250'  %>
             <% else %>
-              <%= image_tag asset_path("no_image.jpg"), class: "card-img-top", size: '300x250'  %>
+              <%= image_tag asset_path("no_image2.jpg"), class: "card-img-top", size: '300x250'  %>
             <% end %>
             <div class="card-body">
               <%= link_to sauna_path(sauna) do %>
-              <p class="card-title"><%= sauna.name %></p>
+                <p class="card-title"><%= sauna.name %></p>
               <% end %>
               <div class ="card-text">
                 <div id="<%= "average-review-rating" + sauna.id.to_s %>", class ="col">
@@ -58,16 +53,17 @@
                   <% if user_signed_in? %>
                     <% if sauna.bookmark_by?(current_user) %>
                       <%= link_to sauna_bookmarks_path(sauna), method: :delete do %>
-                        <button type="button" class="btn btn-sm btn-warning">保存済み</button>
+                        <button type="button" class="btn btn-sm btn-warning" ><i class="fas fa-bookmark" ></i></button>
                       <% end %>
                     <% else %>
                       <%= link_to sauna_bookmarks_path(sauna), method: :post do %>
-                        <button type="button" class="btn btn-sm btn-outline-warning"> 保存</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning"><i class="far fa-bookmark"></i></button>
                       <% end %>
                     <% end %>
                   <% end %>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <%= link_to sauna_path(sauna) do %>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <% end %>
                 </div>
                 <small class="text-muted"><%= sauna.created_at_ymd %></small>
               </div>
@@ -75,7 +71,9 @@
           </div>
         </div>
         <% end %>
-
+      </div>
+      <div class="d-flex justify-content-center">
+      <%= paginate @saunas_new %>
       </div>
     </div>
   </div>

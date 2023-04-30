@@ -11,7 +11,7 @@ class Public::CommentsController < ApplicationController
     @comment.review_id = @review.id
     if @comment.save
       flash[:notice] = "You have created comment successfully."
-      redirect_to sauna_review_comment_path(@comment.review.sauna,@comment.review,@comment)
+      redirect_to sauna_review_path(@comment.review.sauna,@comment.review)
     else
       render :new
     end

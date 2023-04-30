@@ -28,21 +28,11 @@
                 <% end %>
               </li>
               <li class="nav-item">
-                <%= link_to  user_bookmarks_path(current_user.id), class: 'nav-link text-dark' do %>
-                保存一覧
+                <%= link_to saunas_path, class: 'nav-link text-dark' do %>
+                サウナ一覧
                 <% end %>
               </li>
 
-              <li class="nav-item">
-                <%#= link_to items_path, class: 'nav-link text-dark' do %>
-                商品一覧
-                <%# end %>
-              </li>
-              <li class="nav-item">
-                <%#= link_to cart_items_path, class: 'nav-link text-dark' do %>
-                カート
-                <%# end %>
-              </li>
               <li class="nav-item">
                 <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
                 ログアウト
@@ -50,19 +40,24 @@
               </li>
             <% elsif admin_signed_in? %>
               <li class="nav-item">
-                <%#= link_to admin_items_path, class: 'nav-link text-dark' do %>
-                商品一覧
-                <%# end %>
+                <%= link_to admin_saunas_path, class: 'nav-link text-dark' do %>
+                サウナ
+                <% end %>
               </li>
               <li class="nav-item">
-                <%#= link_to admin_customers_path, class: 'nav-link text-dark' do %>
-                会員一覧
-                <%# end %>
+                <%= link_to admin_genres_path, class: 'nav-link text-dark' do %>
+                ジャンル
+                <% end %>
               </li>
               <li class="nav-item">
-                <%#= link_to admin_root_path, class: 'nav-link text-dark' do %>
-                注文履歴一覧
-                <%# end %>
+                <%= link_to admin_users_path, class: 'nav-link text-dark' do %>
+                ユーザー
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to admin_reviews_path, class: 'nav-link text-dark' do %>
+                レビュー
+                <% end %>
               </li>
               <li class="nav-item">
                 <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
@@ -72,14 +67,9 @@
 
             <% else %>
               <li class="nav-item">
-                <%#= link_to  about_path, class: 'nav-link text-dark' do %>
-                About
-                <%# end %>
-              </li>
-              <li class="nav-item">
-                <%#= link_to items_path, class: 'nav-link text-dark' do %>
-                商品一覧
-                <%# end %>
+                <%= link_to saunas_path, class: 'nav-link text-dark' do %>
+                サウナ一覧
+                <% end %>
               </li>
               <li class="nav-item">
                 <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>

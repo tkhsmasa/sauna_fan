@@ -1,15 +1,16 @@
 class Public::SaunasController < ApplicationController
   def index
     @search_params = sauna_search_params
-    @saunas = Sauna.search(@search_params).joins(:genre).is_active.page(params[:page]).per(10)
+    @saunas = Sauna.search(@search_params).joins(:genre)
+    @saunas_active = @saunas.is_active
+    @saunas_page = @saunas_active.page(params[:page]).per(10)
   end
 
 
   def show
     @sauna = Sauna.find(params[:id])
-    @reviews = @sauna.reviews
+    @reviews = @sauna.reviews.page(params[:page]).per(10)
     @bookmarks = @sauna.bookmarks
-    #byebug
   end
 
   private

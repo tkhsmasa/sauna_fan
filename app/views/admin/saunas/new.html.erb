@@ -15,13 +15,6 @@
   <%= form_with model: @sauna, url: admin_saunas_path do |f| %>
 
     <div class="form-group row">
-      <%= f.label "商品画像", class: "col-md-2 offset-md-2 col-form-label" %>
-      <div class="col-md-6">
-        <%= f.file_field :sauna_images, placeholder:"ファイルを選択", multiple: true  %>
-      </div>
-    </div>
-
-    <div class="form-group row">
       <%= f.label "サウナ名", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5">
         <%= f.text_field :name, placeholder:"施設名",  class: "form-control" %>
@@ -56,16 +49,21 @@
       </div>
     </div>
 
-
     <div class="form-group row">
-      <%= f.label "サウナ説明", class: "col-md-2 offset-md-2 col-form-label" %>
+      <%= f.label "施設説明", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5">
         <%= f.text_area :introduction, placeholder:"ここに説明文を記述します",  class: "form-control" %>
       </div>
     </div>
+    <div class="form-group row">
+      <%= f.label "営業時間", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-5">
+        <%= f.text_field :business_hours, placeholder:"10:00~18:00",  class: "form-control" %>
+      </div>
+    </div>
 
     <div class="form-group row">
-      <%= f.label "入湯料", class: "col-md-2 offset-md-2 col-form-label" %>
+      <%= f.label "入湯料(税込)", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-5 pr-0">
         <%= f.text_field :price, placeholder:"1000",  class: "form-control" %>
       </div>
@@ -110,6 +108,13 @@
         <%= f.label :"公開" %>
       </div>
     </div>
+    <div class="form-group row">
+      <%= f.label "商品画像", class: "col-md-2 offset-md-2 col-form-label" %>
+      <div class="col-md-6">
+        <%= f.file_field :sauna_images, placeholder:"ファイルを選択", multiple: true  %>
+      </div>
+    </div>
+
 
     <div class="row  justify-content-center">
       <div class="col-auto ">

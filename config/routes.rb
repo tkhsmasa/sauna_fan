@@ -41,7 +41,12 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'homes/top'
     # URL/admin/saunas...
-    resources :saunas, except: [:destroy]
+    resources :saunas, except: [:destroy] do
+      resources :reviews, only: [:show, :destroy] do
+        resources :comments, only: [:destroy]
+      end
+    end
+    resources :reviews, only: [:index]
     resources :users, except: [:destroy]
 
     # URL/admin/genres...

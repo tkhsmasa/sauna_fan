@@ -203,16 +203,26 @@
                 <th scope="col", style="width: 25%"></th>
                 <th scope="col", style="width: 40%">タイトル</th>
                 <th scope="col", style="width: 10%">評価</th>
-                <th scope="col", style="width: 20%">ユーザー</th>
+                <th scope="col", style="width: 20%">
+                    ユーザー
+                </th>
               </tr>
             </thead>
             <% @reviews.each do |review| %>
             <tbody>
               <tr>
-                <td><%= review.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+                <td>
+                  <%= link_to admin_sauna_review_path(review) do %>
+                    <%= review.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                  <% end %>
+                </td>
                 <td><%= review.review_title.truncate(10) %></td>
                 <td><%= review.rate %></td>
-                <td><%= review.user.full_name %></td>
+                <td>
+                  <%= link_to admin_user_path(review.user) do %>
+                    <%= review.user.full_name %>
+                  <% end %>
+                </td>
               </tr>
             </tbody>
             <% end %>
@@ -240,8 +250,16 @@
             <tbody>
               <tr>
                 <td scope="row"><%= bookmark.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
-                <td><%= bookmark.user_id %></td>
-                <td><%= bookmark.user.full_name %></td>
+                <td>
+                  <%= link_to admin_user_path(bookmark.user) do %>
+                    <%= bookmark.user_id %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to admin_user_path(bookmark.user) do %>
+                    <%= bookmark.user.full_name %>
+                  <% end %>
+                </td>
               </tr>
             </tbody>
             <% end %>

@@ -11,15 +11,15 @@
     </div>
   </div>
 
-  <% @saunas.each do |sauna| %>
+  <% @saunas_page.each do |sauna| %>
   <div class="row my-3 border-top">
     <div class = "col-md-4">
       <div class = "row">
         <div class = "col-md-12 d-flex justify-content-center">
           <% if sauna.sauna_images.attached? %>
-            <%= image_tag sauna.sauna_images[0], size: '300x250' ,class: "mx-5 my-3"  %>
+            <%= image_tag sauna.sauna_images[0], size: '250x200' ,class: "mx-5 my-3"  %>
           <% else %>
-            <%= image_tag asset_path("no_image.jpg"), size: '300x250' ,class: "mx-5 my-3"  %>
+            <%= image_tag asset_path("no_image2.jpg"), size: '250x200' ,class: "mx-5 my-3"  %>
           <% end %>
         </div>
       </div>
@@ -34,8 +34,11 @@
             <% end %>
 
             <div class ="col-12"></div>
+            <div class ="col-md-12 mb-2">
+              <%= sauna.introduction %>
+            </div>
             <div class ="col-md-12">
-              <p class ="my-0"><%= sauna.address_display %></p>
+              <%= sauna.address_display %>
             </div>
             <div class ="col-md-auto">
               <div id="<%= "average-review-rating" + sauna.id.to_s %>"></div>
@@ -69,19 +72,17 @@
         </div>
         <div class ="col-md-2">
           <div class = "row d-flex justify-content-center">
-            <div class ="col-auto">
             <% if user_signed_in? %>
               <% if sauna.bookmark_by?(current_user) %>
                 <%= link_to sauna_bookmarks_path(sauna), method: :delete do %>
-                  <button type="button" class="btn btn btn-warning">保存済み</button>
+                  <button type="button" class="btn btn btn-warning"><i class="fas fa-bookmark"></i><small>保存済み</small></button>
                 <% end %>
               <% else %>
                 <%= link_to sauna_bookmarks_path(sauna), method: :post do %>
-                  <button type="button" class="btn btn btn-outline-warning"> 保存</button>
+                  <button type="button" class="btn btn btn-outline-warning"><i class="far fa-bookmark"></i> <small>保存</small></button>
                 <% end %>
               <% end %>
             <% end %>
-            </div>
           </div>
         </div>
       </div>
@@ -90,6 +91,6 @@
   <% end %>
 
   <div class="d-flex justify-content-center">
-   <%= paginate @saunas %>
+   <%= paginate @saunas_page %>
   </div>
 </div>
