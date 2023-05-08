@@ -91,5 +91,38 @@
     <main>
       <%= yield %>
     </main>
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <p>サ活を極めよう</p>
+          </div>
+          <div class="col-md-8">
+
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+              </li>
+              <li class="nav-item">
+                <%= link_to root_path, class: 'nav-link text-white' do %>
+                Top
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to saunas_path, class: 'nav-link text-white' do %>
+                サウナ一覧
+                <% end %>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <p class="text-muted">Copyright ©</p>
+        </div>
+      </div>
+    </footer>
+
+
   </body>
 </html>
