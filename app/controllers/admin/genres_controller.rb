@@ -1,4 +1,5 @@
 class Admin::GenresController < ApplicationController
+  before_action :is_matching_login_admin
   def index
     #ジャンル新規
     @genre_new = Genre.new
@@ -43,6 +44,12 @@ class Admin::GenresController < ApplicationController
 
   def genre_params
     params.require(:genre).permit(:name)
+  end
+
+  def is_matching_login_admin
+    unless admin_signed_in?
+      redirect_to root_path
+    end
   end
 
 

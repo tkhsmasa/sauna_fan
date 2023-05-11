@@ -1,2 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
 @use '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.push {
+  height: 100px;/*フッターと同じ高さに指定*/
+}

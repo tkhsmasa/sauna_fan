@@ -1,4 +1,5 @@
 class Admin::SaunasController < ApplicationController
+  before_action :is_matching_login_admin
   def index
     @saunas = Sauna.page(params[:page]).per(10)
   end
@@ -50,6 +51,12 @@ class Admin::SaunasController < ApplicationController
 
   def sauna_params
     params.require(:sauna).permit( :genre_id, :name, :postal_code, :address1, :address2, :address3, :address_full, :introduction, :price, :business_hours, :is_active, :sales_state, :latitude, :longitude, sauna_images: [] )
+  end
+
+  def is_matching_login_admin
+    unless admin_signed_in?
+      redirect_to root_path
+    end
   end
 
 end
