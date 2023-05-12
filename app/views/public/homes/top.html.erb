@@ -11,10 +11,15 @@
 </div>
 
 <div class="album">
+  <% if admin_signed_in? %>
+  <div class="my-4">
+    <%= render 'admin/admin_search', search_params: @search_params%>
+  </div>
+  <% else %>
   <div class="my-4">
     <%= render 'public/search', search_params: @search_params%>
   </div>
-
+  <% end %>
     <div class="container">
       <div class="row">
         <% @saunas_new.each do |sauna| %>

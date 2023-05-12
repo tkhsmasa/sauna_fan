@@ -19,16 +19,13 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     # URL/users...
-
       resources :users, only: [:show, :edit, :update] do
         get 'unsubscribe'
         patch 'withdraw'
         resources :bookmarks, only: [:index]
-
       end
 
     resources :saunas, only: [:index, :show] do
-
       resources :reviews, except: [:index] do
         resources :comments, except: [:index]
         resource :favorites, only: [:create, :destroy]
@@ -46,12 +43,12 @@ Rails.application.routes.draw do
         resources :comments, only: [:destroy]
       end
     end
+    # URL/admin/reviews...
     resources :reviews, only: [:index]
+    # URL/admin/users...
     resources :users, except: [:destroy]
-
     # URL/admin/genres...
     resources :genres, only: [:index, :create, :edit, :update, :destroy]
-    resources :areas, only: [:index, :create, :edit, :update, :destroy]
 
   end
 

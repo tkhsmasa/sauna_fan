@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :is_matching_login_admin
   def index
     @users = User.page(params[:page]).per(10)
   end
@@ -25,6 +26,12 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :is_deleted)
+  end
+
+  def is_matching_login_admin
+    unless admin_signed_in?
+      redirect_to root_path
+    end
   end
 
 
