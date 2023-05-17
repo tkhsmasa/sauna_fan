@@ -66,8 +66,14 @@
                       <% end %>
                     <% end %>
                   <% end %>
-                  <%= link_to sauna_path(sauna) do %>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <% if admin_signed_in? %>
+                    <%= link_to admin_sauna_path(sauna) do %>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <% end %>
+                  <% else %>
+                    <%= link_to sauna_path(sauna) do %>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <% end %>
                   <% end %>
                 </div>
                 <small class="text-muted"><%= sauna.created_at_ymd %></small>
