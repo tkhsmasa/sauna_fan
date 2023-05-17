@@ -32,7 +32,7 @@ class Public::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       flash[:notice] = "You have created comment successfully."
-      redirect_to sauna_review_comment_path
+      redirect_to sauna_review_path(@comment.review.sauna,@comment.review)
     else
       render :edit
     end
