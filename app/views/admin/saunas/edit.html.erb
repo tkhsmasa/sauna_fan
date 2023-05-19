@@ -86,25 +86,24 @@
     <div class="form-group row">
       <%= f.label "販売ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
-        <%= f.radio_button :sales_state, true, id: "sales_states1" %>
-        <%= f.label :"閉業" %>
+        <%= f.radio_button :sales_state, true %>
+        <%= f.label :sales_state_true, "閉業" %>
       </div>
       <div class="col-md-2">
-        <%= f.radio_button :sales_state, false, id: "sales_states2" %>
-        <%= f.label :"営業中" %>
+        <%= f.radio_button :sales_state, false %>
+        <%= f.label :sales_state_false, "営業中" %>
       </div>
     </div>
-
 
     <div class="form-group row">
       <%= f.label "公開状況", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
-        <%= f.radio_button :is_active, true, id: "is_active1" %>
-        <%= f.label :"非公開" %>
+        <%= f.radio_button :is_active, true %>
+        <%= f.label :is_active_true, "非公開" %>
       </div>
       <div class="col-md-2">
-        <%= f.radio_button :is_active, false, id: "is_active2" %>
-        <%= f.label :"公開" %>
+        <%= f.radio_button :is_active, false %>
+        <%= f.label :is_active_false,"公開" %>
       </div>
     </div>
     <div class="form-group row">
