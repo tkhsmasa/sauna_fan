@@ -90,11 +90,11 @@
       <%= f.label "営業ステータス", class: "col-md-2 offset-md-2 col-form-label" %>
       <div class="col-md-2">
         <%= f.radio_button :sales_state, true %>
-        <%= f.label :sales_state_true, "閉業",value: true %>
+        <%= f.label :sales_state, "閉業",value: true %>
       </div>
       <div class="col-md-2">
         <%= f.radio_button :sales_state, false %>
-        <%= f.label :sales_state_false, "営業中", value: false %>
+        <%= f.label :sales_state, "営業中", value: false %>
       </div>
     </div>
     <div class="form-group row">
