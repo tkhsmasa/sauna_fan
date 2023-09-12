@@ -17,11 +17,9 @@ class Admin::ReviewsController < ApplicationController
   end
 
   private
-
-  def is_matching_login_admin
-    unless admin_signed_in?
-      redirect_to root_path
+    def is_matching_login_admin
+      unless admin_signed_in?
+        redirect_to root_path
+      end
     end
-  end
-
 end
